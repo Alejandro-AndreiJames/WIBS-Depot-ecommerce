@@ -135,6 +135,7 @@
             </form>
         </div>
     </div>
+    <div id="itemRemoved" data-removed="<?php echo $itemRemoved ? 'true' : 'false'; ?>" style="display:none;"></div>
     <?php if ($itemRemoved): ?>
         <div class='notification' id='notification'>Item removed from cart successfully</div>
     <?php endif; ?>
