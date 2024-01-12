@@ -1,7 +1,7 @@
         <?php
             // Connect to the database
-            $conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
-            #$conn = mysqli_connect('localhost','root','','u733671518_project');
+            #$conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
+            $conn = mysqli_connect('localhost','root','','u733671518_project');
 
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
@@ -81,6 +81,8 @@
                     echo "Order placed successfully";
                     // Optionally, clear the cart
                     $conn->query("DELETE FROM cart WHERE user_id = '$userid'");
+                    header("Location: payment_selection.php");
+                    exit();
                 } else {
                     echo "Error: " . $conn->error;
                 }
@@ -176,10 +178,13 @@
                 </div>
                 <div class="order-summary">
                     <div class="order-form">
+                    <?php
+                    $_SESSION['total_amount'] = $total_amount;
+                    $_SESSION['user_id'] = $userid;
+                    ?>
                         <form method="POST" action="">
                         <button type="submit" name="place_order" <?php if (!$hasCartItems) 
                         echo 'disabled style="background-color: darkgray;"'; ?>>Place Order</button>
-            </form>
                         </form>
                     </div>
                 </div>

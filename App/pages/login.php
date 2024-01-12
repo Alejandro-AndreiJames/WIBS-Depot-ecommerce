@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
-#$conn = mysqli_connect('localhost','root','','u733671518_project');
+#$conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
+$conn = mysqli_connect('localhost','root','','u733671518_project');
 session_start();
 
 $errors = array();
@@ -22,6 +22,8 @@ if (isset($_POST['submit'])) {
         $_SESSION['user_id'] = $row['customer_id'];
         $_SESSION['user_name'] = $row['name'];
         $_SESSION['delivery_address'] = $row['address'];
+        $_SESSION['vrzn_num'] = $row['vrzn_num'];
+        $_SESSION['apex_num'] = $row['apex_num'];
         header('location:homepage.php');
         exit();
     } else {
