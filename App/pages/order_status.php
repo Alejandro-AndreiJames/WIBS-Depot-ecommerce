@@ -96,6 +96,6 @@ $username = $_SESSION['user_name'];
   <footer class="site-footer">
         <p>&copy; 2023 WIBS. All rights reserved.</p>
   </footer>
-  <script src="order_status.js"></script>
+  <script src="../js/order_status.js"></script>
 </body>
 </html>
