@@ -1,7 +1,7 @@
         <?php
             // Connect to the database
-            $conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
-            #$conn = mysqli_connect('localhost','root','','u733671518_project');
+            #$conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
+            $conn = mysqli_connect('localhost','root','','u733671518_project');
 
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
@@ -74,11 +74,13 @@
                 }
                 
                 $items_json = json_encode($items);
-                
+                $po_id = uniqid('po_');
                 // Insert into purchase_orders
-                $insert_sql = "INSERT INTO purchase_orders (user_id, items, grand_total, customer_name, delivery_address, status) VALUES ('$userid', '$items_json', $grand_total, '$customer_name', '$customer_address', 1)";
+                $insert_sql = "INSERT INTO purchase_orders (po_id, user_id, items, grand_total, customer_name, delivery_address, status) VALUES ('$po_id', '$userid', '$items_json', $grand_total, '$customer_name', '$customer_address', 1)";
                 if ($conn->query($insert_sql) === TRUE) {
                     echo "Order placed successfully";
+                    // Store PO ID in the session
+                    $_SESSION['po_id'] = $po_id;
                     // Optionally, clear the cart
                     $conn->query("DELETE FROM cart WHERE user_id = '$userid'");
                     header("Location: payment_selection.php");

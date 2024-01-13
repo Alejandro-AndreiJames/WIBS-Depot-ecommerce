@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare SQL statement to update the delivery status
-    $stmt = $mysqli->prepare("UPDATE purchase_orders SET status = '2' WHERE po_id = ?");
+    $stmt = $mysqli->prepare("UPDATE purchase_orders SET status = '3' WHERE po_id = ?");
     
     // Check for errors in preparing the statement
     if (!$stmt) {
