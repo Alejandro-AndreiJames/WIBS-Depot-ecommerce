@@ -74,14 +74,13 @@
                 }
                 
                 $items_json = json_encode($items);
-                $po_id = uniqid('po_');
+                
                 // Insert into purchase_orders
-                $insert_sql = "INSERT INTO purchase_orders (po_id, user_id, items, grand_total, customer_name, delivery_address, status) VALUES ('$po_id', '$userid', '$items_json', $grand_total, '$customer_name', '$customer_address', 1)";
+                $insert_sql = "INSERT INTO purchase_orders (user_id, items, grand_total, customer_name, delivery_address, status) VALUES ('$userid', '$items_json', $grand_total, '$customer_name', '$customer_address', 1)";
                 if ($conn->query($insert_sql) === TRUE) {
                     echo "Order placed successfully";
-                    // Store PO ID in the session
-                    $_SESSION['po_id'] = $po_id;
-                    // Optionally, clear the cart
+                    $po_id = $conn->insert_id; // Retrieve the last inserted ID
+                    $_SESSION['po_id'] = $po_id; 
                     $conn->query("DELETE FROM cart WHERE user_id = '$userid'");
                     header("Location: payment_selection.php");
                     exit();

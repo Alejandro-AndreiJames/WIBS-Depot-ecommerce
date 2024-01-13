@@ -39,21 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
     <link rel="stylesheet" href="../css/payment_selection.css">
 </head>
 <body>
-    <form method="POST" action="">  
+    <form method="POST" action="">
         <div class="payment-details">
             <strong><p>Pay to: <span id="recipientName">FusionDesign</span></p></strong>
             <strong><p>₱<span id="totalAmount"><?php echo htmlspecialchars($total_amount); ?></span></p></strong>
             <p>Bank Code: <span id="bankCode">[Bank Code]</span></p>
             <p>Recipient Number: <span id="recipientNumber">[Recipient Number]</span></p>
         </div>
-
         <input type="radio" id="vrzn" name="selected_bank" value="vrzn" required>
         <label for="vrzn">Vrzn Bank</label><br>
         <input type="radio" id="apex" name="selected_bank" value="apex">
         <label for="apex">Apex Bank</label><br> 
         <button type="submit" name="pay">Pay</button>
         <div style="display: none;">
-        <div id="poIdElement    " data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
+        <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
             <div id="transactionAmount"><?php echo htmlspecialchars($total_amount); ?></div>
             <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
             <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
