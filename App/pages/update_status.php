@@ -5,7 +5,7 @@ header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['po_id'])) {
     $po_id = $_POST['po_id'];
-    $conn = mysqli_connect('localhost', 'root', '', 'u733671518_project');
+    include 'db_conn.php';
 
     if ($conn->connect_error) {
         echo json_encode(['success' => false, 'message' => 'Database connection failed']);

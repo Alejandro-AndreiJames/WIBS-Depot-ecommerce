@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var sourceAccountNo = selectedBank === 'vrzn' ? vrznAccountNo : apexAccountNo;
 
         // Send POST request
-        fetch('https://projectvrzn.online/vrzn-bank/app/database/fund-transfer-sample.php', {
+        fetch('https://projectvrzn.online/vrzn-bank/app/database/transfer.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
