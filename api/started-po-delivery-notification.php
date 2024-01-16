@@ -1,63 +1,72 @@
-    <?php
-    header("Access-Control-Allow-Origin:*");
-    header("Access-Control-Allow-Methods:*");
-    header("Access-Control-Allow-Headers:*");
-    // This line ensures we only handle POST requests
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve POST parameters
-        $po_id = isset($_POST['po_id']) ? $_POST['po_id'] : null;
-        $delivery_reference_number = isset($_POST['delivery_reference_number']) ? $_POST['delivery_reference_number'] : null;
-        
-        // Perform input validation, for example:
-        if (is_null($po_id) || is_null($delivery_reference_number)) {
-            // Missing parameters, so we return a 400 Bad Request
-            http_response_code(400);
-            echo json_encode(['error' => 'Missing parameters.']);
-            exit;
-        }
+<?php
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Methods:*");
+header("Access-Control-Allow-Headers:*");
 
-        // Database configuration
-        $conn = mysqli_connect('127.0.0.1:3306','u733671518_wibs','|4Kh/3XYD','u733671518_project');
-
-        // Check connection
-        if ($mysqli->connect_error) {
-            http_response_code(500);
-            echo json_encode(['result' => 'error', 'message' => 'Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error]);
-            exit;
-        }
-
-        // Prepare SQL statement to update the delivery status
-        $stmt = $mysqli->prepare("UPDATE purchase_orders SET status = '3' WHERE po_id = ?");
-        
-        // Check for errors in preparing the statement
-        if (!$stmt) {
-            http_response_code(500);
-            echo json_encode(['result' => 'error', 'message' => 'Prepare Error: ' . $mysqli->error]);
-            $mysqli->close();
-            exit;
-        }
-        
-        // Bind the parameters
-        $stmt->bind_param('i', $po_id);
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            // If everything is fine, return a success message
-            http_response_code(200);
-            echo json_encode(['result' => 'success', 'message' => 'Delivery status updated successfully.']);    
-        } else {
-            // If there was an error, return a 500 Internal Server Error
-            http_response_code(500);
-            echo json_encode(['result' => 'error', 'message' => 'Execute Error: ' . $stmt->error]);
-        }
-        
-        // Close statement and connection
-        $stmt->close();
-        $mysqli->close();
-    } else {
-        // If the request is not a POST, return a 405 Method Not Allowed
-        http_response_code(405);
-        echo json_encode(['error' => 'Method Not Allowed.']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve POST parameters
+    $po_id = isset($_POST['po_id']) ? $_POST['po_id'] : null;
+    $delivery_reference_number = isset($_POST['delivery_reference_number']) ? $_POST['delivery_reference_number'] : null;
+    
+    // Perform input validation
+    if (is_null($po_id) || is_null($delivery_reference_number)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing parameters.']);
+        exit;
     }
 
-    ?>
+    // Database configuration
+    $mysqli = new mysqli('127.0.0.1:3306', 'u733671518_wibs', '|4Kh/3XYD', 'u733671518_project');
+
+    // Check connection
+    if ($mysqli->connect_errno) {
+        http_response_code(500);
+        echo json_encode(['result' => 'error', 'message' => 'Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error]);
+        exit;
+    }
+
+    // Start transaction
+    $mysqli->begin_transaction();
+
+    try {
+        // Prepare SQL statement to update the delivery status
+        $stmtUpdate = $mysqli->prepare("UPDATE purchase_orders SET status = '3' WHERE po_id = ?");
+        $stmtUpdate->bind_param('i', $po_id);
+
+        // Execute the statement
+        if (!$stmtUpdate->execute()) {
+            throw new Exception('Execute Error: ' . $stmtUpdate->error);
+        }
+
+        // Insert into order_delivery_info table
+        $stmtInsert = $mysqli->prepare("INSERT INTO order_delivery_info (po_id, delivery_reference_number) VALUES (?, ?)");
+        $stmtInsert->bind_param('is', $po_id, $delivery_reference_number);
+
+        if (!$stmtInsert->execute()) {
+            throw new Exception('Execute Error: ' . $stmtInsert->error);
+        }
+
+        // Commit transaction
+        $mysqli->commit();
+
+        // If everything is fine, return a success message
+        http_response_code(200);
+        echo json_encode(['result' => 'success', 'message' => 'Delivery status updated successfully.']);
+
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $mysqli->rollback();
+        http_response_code(500);
+        echo json_encode(['result' => 'error', 'message' => $e->getMessage()]);
+    } finally {
+        // Close statements and connection
+        $stmtUpdate->close();
+        $stmtInsert->close();
+        $mysqli->close();
+    }
+} else {
+    // If the request is not a POST, return a 405 Method Not Allowed
+    http_response_code(405);
+    echo json_encode(['error' => 'Method Not Allowed.']);
+}
+?>
