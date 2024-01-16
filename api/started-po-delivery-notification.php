@@ -84,14 +84,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $poId = $_POST['po_id'] ?? "";
         $deliveryReferenceNumber = $_POST['delivery_reference_number'] ?? "";
 
-        $sql = "INSERT INTO order_delivery_info (po_id, delivery_reference_number) VALUES ('$poId', '$deliveryReferenceNumber')";
-        $sqlUpdate = "UPDATE purchase_order SET status = 3 WHERE po_id = $poId";
+        // Start transaction
+        mysqli_begin_transaction($conn);
 
-        if (!mysqli_query($conn, $sql, $sqlUpdate)) {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        try {
+            $sql = "INSERT INTO order_delivery_info (po_id, delivery_reference_number) VALUES ('$poId', '$deliveryReferenceNumber')";
+            if (!mysqli_query($conn, $sql)) {
+                throw new Exception("Error: " . $sql . "<br>" . mysqli_error($conn));
+            }
+
+            $sqlUpdate = "UPDATE purchase_order SET status = 3 WHERE po_id = $poId";
+            if (!mysqli_query($conn, $sqlUpdate)) {
+                throw new Exception("Error: " . $sqlUpdate . "<br>" . mysqli_error($conn));
+            }
+
+            // If no errors, commit the transaction
+            mysqli_commit($conn);
+            echo "New record created successfully";
+        } catch (Exception $e) {
+            // An error occurred, roll back the transaction
+            mysqli_rollback($conn);
+            echo $e->getMessage();
         }
     }
-    echo "New record created successfully";
     mysqli_close($conn);
 }
-
