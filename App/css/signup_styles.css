@@ -1,19 +1,26 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  background-image: url('../ASSETS/background2.svg'); /* please replace with proper file format nalang po ty! */
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  overflow: hidden;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 26px 92px;
-  background-color: #ffffff;
 }
+
 .header-icon {
   width: 30px;
   height: 30px; 
   background-size: cover;
 }
+
 .header-title {
   color: #2a9d8f;
   font-size: 24px; 

@@ -45,12 +45,18 @@ if (isset($_POST['submit'])) {
 <body>
     <header class="header">
         <div></div>
-        <div class="header-title"><img src="../ASSETS/logo.png" alt="pciture"></div>
+        <div class="header-title"><img src="../ASSETS/logo.png" alt="picture"></div>
     </header>
 
-    <div class="content">   
+    <div class="content">
+        <div class="content-image1">
+            <img src="../ASSETS/open blue cardboard box.png" alt="box">
+        </div>   
+        <div class="content-image3">
+            <img src="../ASSETS/cardboard box.png" alt="boy">
+        </div>
         <div class="content-image">
-            <img src="../ASSETS/Red haired man with raised hand.png" alt="ASDASd">
+            <img src="../ASSETS/Red haired man with raised hand.png" alt="boy">
         </div>
         <div class="content-form">
             <form action="" method="post">
@@ -79,7 +85,9 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     <footer>
-        <img src="../ASSETS/open cardboard box.png" alt="">
+        <div class="footer1">
+            <img src="../ASSETS/open cardboard box.png" alt="">
+        </div>
     </footer>
 </body>
 <script src="script.js"></script>

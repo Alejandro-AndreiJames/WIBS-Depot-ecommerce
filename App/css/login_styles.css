@@ -1,14 +1,19 @@
-body {
+body{
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   font-family: Arial, sans-serif;
+  background-image: url('../ASSETS/background2.svg'); /* please replace with proper file format nalang po ty! */
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  overflow: hidden;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 92px;
-  background-color: #ffffff;
 }
 
 .header-icon {
@@ -19,6 +24,7 @@ body {
 .header-title {
   color: #2a9d8f;
   font-size: 24px; 
+  margin-top: 40px;
 }
 
 .content {
@@ -26,7 +32,32 @@ body {
   justify-content: center;
   align-items: center;
   gap: 100px;
-  
+  margin-top: -50px;
+}
+
+.content-image1 {
+  position: fixed; /* or 'fixed' if the layout requires it */
+  bottom: 200px; /* Replace X with the value that positions the box beside the foot */
+  left: 150px; /* Replace Y */
+  z-index: 2;
+}
+
+.content-image3 {
+  position: fixed; /* or 'fixed' if the layout requires it */
+  bottom: 250px; /* Replace X with the value that positions the box beside the foot */
+  left: 270px; /* Replace Y */
+  z-index: 1;
+}
+
+.content-image3 img {
+  width: 300px; /* or any size you prefer */
+  height: auto; /* this will maintain the aspect ratio */
+}
+
+
+.content-image {
+  position: relative;
+  z-index: 3;
 }
 
 .content-form {
@@ -97,6 +128,11 @@ footer {
     flex-direction: row-reverse;
 }
 
+.footer1 img {
+  margin-top: -50px;
+  width: 300px;
+  height: auto;
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
