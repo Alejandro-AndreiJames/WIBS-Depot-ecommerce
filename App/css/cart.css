@@ -26,6 +26,11 @@ body {
     font-weight: 900;
 }   
 
+.logo img {
+    width: 160px; /* or any size you prefer */
+    height: auto; /* this will maintain the aspect ratio */
+  }  
+
 .nav-container {
     display: flex;
     flex-direction: column;

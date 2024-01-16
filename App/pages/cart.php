@@ -119,7 +119,9 @@
         <body>
         <div class="overlay"></div>
     <div class="navbar">
-        <div class="logo">WIBS</div>
+        <div class="logo">
+            <img src="../ASSETS/wibsdepot2.png" alt="logo">
+        </div>
         <div class="nav-links">
             <a href="homepage.php">Home</a>
             <a href="order_status.php">Order Status</a>
