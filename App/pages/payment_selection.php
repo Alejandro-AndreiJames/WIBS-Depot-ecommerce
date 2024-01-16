@@ -43,10 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
             <p>Bank Code: <span id="bankCode">[Bank Code]</span></p>
             <p>Recipient Number: <span id="recipientNumber">[Recipient Number]</span></p>
         </div>
-        <input type="radio" id="vrzn" name="selected_bank" value="vrzn" required>
-        <label for="vrzn">Vrzn Bank</label><br>
-        <input type="radio" id="apex" name="selected_bank" value="apex">
-        <label for="apex">Apex Bank</label><br> 
+        <select id="bankSelection" name="selected_bank" required>
+            <option value="">Select Bank</option>
+            <option value="vrzn">Vrzn Bank</option>
+            <option value="apex">Apex Bank</option>
+        </select>
         <button type="submit" name="pay">Pay</button>
         <div style="display: none;">
         <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 

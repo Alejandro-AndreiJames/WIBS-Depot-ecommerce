@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle form submission
     document.querySelector('form').addEventListener('submit', function(event) {
         event.preventDefault();
-
         // Fetch transaction details from session or form
         var transactionAmount = document.getElementById('transactionAmount').innerText;
         var vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
@@ -50,11 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const bankCode = sellerDetails.seller_bank_code;
         const redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
 
-        var selectedBank = document.querySelector('input[name="selected_bank"]:checked').value;
+        var selectedBank = document.getElementById('bankSelection').value;
         var sourceAccountNo = selectedBank === 'vrzn' ? vrznAccountNo : apexAccountNo;
 
+        var apiURL = selectedBank === 'vrzn' ?
+        'https://projectvrzn.online/vrzn-bank/app/database/transfer.php' :
+        'https://apexapp.tech/app/client/backend/api/fund-transfer-external.php'; // Replace with Apex Bank's actual API URL
+
         // Send POST request
-        fetch('https://projectvrzn.online/vrzn-bank/app/database/transfer.php', {
+        fetch(apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
