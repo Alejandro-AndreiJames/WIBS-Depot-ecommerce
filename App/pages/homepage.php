@@ -80,7 +80,7 @@ $stmt->close();
             </div>
         </div>
         <div class="third-section">
-            <h1>All Deals</h1>
+            <h1 id="all_deals_section">All Deals</h1>
             <div class="content-wrapper-3">
 
             </div>

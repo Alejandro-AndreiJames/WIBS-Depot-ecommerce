@@ -1,6 +1,6 @@
 let cartItemCount = 0;
 document.addEventListener('DOMContentLoaded', function() {
-    const itemsPerPage = 9;
+    const itemsPerPage = 15;
     let currentPage = 1;
     let totalItems = 45;
 
@@ -173,10 +173,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentPage = i;
                 fetchItems(((currentPage - 1) * itemsPerPage) + 5, itemsPerPage)
                     .then(displayAllDeals)
+                    .then(scrollToAllDealsSection)
                     .catch(error => console.error('Error:', error));
             });
             pagination.appendChild(pageLink);
         }
+    }
+
+    function scrollToAllDealsSection() {
+        const allDealsSection = document.querySelector('#all_deals_section');
+        allDealsSection.scrollIntoView();
     }
 
     displayInitialItems();
