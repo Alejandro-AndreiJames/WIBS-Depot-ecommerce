@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $deliveryReferenceNumber = $_POST['delivery_reference_number'] ?? "";
 
         $sql = "INSERT INTO order_delivery_info (po_id, delivery_reference_number) VALUES 
-                    ('$poID', '$deliveryReferenceNumber')";
+                    ('$poId', '$deliveryReferenceNumber')";
 
         if (!mysqli_query($conn, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
