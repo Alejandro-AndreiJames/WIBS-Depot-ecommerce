@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("Error: " . $sql . "<br>" . mysqli_error($conn));
             }
 
-            $sqlUpdate = "UPDATE purchase_order SET status = 3 WHERE po_id = $poId";
+            $sqlUpdate = "UPDATE purchase_orders SET status = 3 WHERE po_id = $poId";
             if (!mysqli_query($conn, $sqlUpdate)) {
                 throw new Exception("Error: " . $sqlUpdate . "<br>" . mysqli_error($conn));
             }
