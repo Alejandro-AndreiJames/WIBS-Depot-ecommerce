@@ -21,6 +21,51 @@ body {
     z-index: 1000;
 }
 
+.banner {
+    width: 100%;
+    display: block; /* Ensures the div is not inline */
+}
+
+.banner img {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures the image is not inline and does not have any unwanted space below */
+}
+
+.banner2 {
+    width: 100%;
+    display: block; /* Ensures the div is not inline */
+}
+
+.banner2 img {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures the image is not inline and does not have any unwanted space below */
+}
+
+.banner3 {
+    width: 100%;
+    display: block; /* Ensures the div is not inline */
+}
+
+.banner3 img {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures the image is not inline and does not have any unwanted space below */
+}
+
+.banner4 {
+    width: 100%;
+    display: block; /* Ensures the div is not inline */
+}
+
+.banner4 img {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures the image is not inline and does not have any unwanted space below */
+}
+
+
 .profile-name {
     display: inline-block;
     margin-left: 20px;
@@ -74,6 +119,10 @@ body {
 }
 
 /*display item styles*/
+
+.first-section h1, .main-content h1, .third-section h1 {
+    margin-left: 20px; /* Adjust the space to your liking */
+}
 
 .content-wrapper-1, .content-wrapper-2, .content-wrapper-3 {
     display: flex;

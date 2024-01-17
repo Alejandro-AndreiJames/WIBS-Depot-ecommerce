@@ -67,27 +67,42 @@ $stmt->close();
             <button id="add_to_cart_btn">Add to Cart</button> 
         </div>
     </div>
+
+    <div class="banner">
+        <img src="../ASSETS/banner1.png" alt="Banner Image">
+    </div>
     
     <div class="main-content">
         <div class="first-section">
             <h1>Best for Your Home</h1>
             <div class="content-wrapper-1">
-               
             </div>
         </div>
+
+        <div class="banner2">
+            <img src="../ASSETS/banner2.png" alt="Banner Image">
+        </div>
+
         <div class="second-section">
             <h1>This Week's Top Sellers</h1>
             <div class="content-wrapper-2">
-
             </div>
         </div>
+
+        <div class="banner3">
+            <img src="../ASSETS/banner3.png" alt="Banner Image">
+        </div>
+
         <div class="third-section">
             <h1 id="all_deals_section">All Deals</h1>
             <div class="content-wrapper-3">
-
             </div>
+            
             <div class="pagination">
+            </div>
 
+            <div class="banner3">
+                <img src="../ASSETS/banner4.png" alt="Banner Image">
             </div>
         </div>
     </div>
