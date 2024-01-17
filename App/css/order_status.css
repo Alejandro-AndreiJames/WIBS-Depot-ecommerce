@@ -87,7 +87,6 @@ a:hover {
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #f9f9f9;
-  cursor: pointer;
   transition: background-color 0.3s;
   text-align: center;
   box-sizing: border-box; 
@@ -95,9 +94,6 @@ a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.column:hover {
-  background-color: #ddd;
-}
 
 h2{
   color: #0B464E;
