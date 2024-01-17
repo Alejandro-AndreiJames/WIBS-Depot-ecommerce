@@ -38,40 +38,54 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error fetching seller details:', error));
 
 
-    // Handle form submission
-    document.querySelector('form').addEventListener('submit', function(event) {
+    document.querySelector('form').addEventListener('submit', async function(event) {
         event.preventDefault();
         // Fetch transaction details from session or form
-        var transactionAmount = document.getElementById('transactionAmount').innerText;
-        var vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
-        var apexAccountNo = document.getElementById('apexAccountNo').innerText;
-        const recipientAccountNo = sellerDetails.seller_account_number;
-        const bankCode = sellerDetails.seller_bank_code;
-        const redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let transactionAmount = document.getElementById('transactionAmount').innerText;
+        let vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
+        let apexAccountNo = document.getElementById('apexAccountNo').innerText;
+        let recipientAccountNo = sellerDetails.seller_account_number;
+        let bankCode = sellerDetails.seller_bank_code;
+        let redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
 
-        var selectedBank = document.getElementById('bankSelection').value;
-        var sourceAccountNo = selectedBank === 'vrzn' ? vrznAccountNo : apexAccountNo;
+        let selectedBank = event.submitter.value; // This line is changed
 
-        var apiURL = selectedBank === 'vrzn' ?
-        'https://projectvrzn.online/vrzn-bank/app/database/transfer.php' :
-        'https://apexapp.tech/app/client/backend/api/fund-transfer-external.php'; // Replace with Apex Bank's actual API URL
+        if (selectedBank === 'vrzn') {
+            let sourceAccountNo = vrznAccountNo;
+            let apiURL = 'https://projectvrzn.online/vrzn-bank/app/database/transfer.php';
 
-        // Send POST request
-        fetch(apiURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                transaction_amount: transactionAmount,
-                source_account_no: sourceAccountNo,
-                recipient_account_no: recipientAccountNo,
-                bank_code: bankCode,
-                redirect_url: redirectUrl
+            fetch(apiURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    transaction_amount: transactionAmount,
+                    source_account_no: sourceAccountNo,
+                    recipient_account_no: recipientAccountNo,
+                    bank_code: bankCode,
+                    redirect_url: redirectUrl
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(handleResponse)
+            .catch(handleError);
+        } else if (selectedBank === 'apex') {
+            let sourceAccountNo = apexAccountNo;
+            let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
+
+            let requestBody = new FormData();
+            requestBody.append('redirect_url', redirectUrl);
+            requestBody.append('transaction_amount', transactionAmount);
+            requestBody.append('source_account_no', sourceAccountNo);
+            requestBody.append('recipient_account_no', recipientAccountNo);
+            requestBody.append('recipient_bank_code', "VRZN");
+
+            let APIResponse = await fetchAPI(url, requestBody);
+            handleResponse(APIResponse);
+        }
+
+        function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
@@ -80,9 +94,29 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 console.error('Error recording transaction:', data.message);
             }
-        })
-        .catch(error => {
+        }
+
+        function handleError(error) {
             console.error('Fetch error:', error);
-        });
+        }
     });
+
+    async function fetchAPI(url, requestBody) {
+        let response = await fetch(url, {
+            method: 'POST',
+            body: requestBody
+        });
+
+        let statusCode = response.status;
+        let data = await response.json();
+
+        if (statusCode === 302) {
+            updateTransactionStatus();
+            window.location.href = data.location;
+            return;
+        }
+
+        data.statusCode = statusCode;
+        return data;
+    }
 });

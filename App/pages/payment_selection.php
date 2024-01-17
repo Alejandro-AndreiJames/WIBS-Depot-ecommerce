@@ -36,6 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
     <link rel="stylesheet" href="../css/payment_selection.css">
 </head>
 <body>
+    <div class="header">
+        <h1>Payment Selection</h1>
+    </div>
+
     <form method="POST" action="">
         <div class="payment-details">
             <strong><p>Pay to: <span id="recipientName">FusionDesign</span></p></strong>
@@ -43,19 +47,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
             <p>Bank Code: <span id="bankCode">[Bank Code]</span></p>
             <p>Recipient Number: <span id="recipientNumber">[Recipient Number]</span></p>
         </div>
-        <select id="bankSelection" name="selected_bank" required>
-            <option value="">Select Bank</option>
-            <option value="vrzn">Vrzn Bank</option>
-            <option value="apex">Apex Bank</option>
-        </select>
-        <button type="submit" name="pay">Pay</button>
+        
+        <div class="bank-selection">
+            <button type="submit" name="selected_bank" value="vrzn" class="bank-btn">
+                <img src="../ASSETS/vrzn_logo.png" alt="Vrzn Bank" class="bank-logo">
+            </button>
+            <button type="submit" name="selected_bank" value="apex" class="bank-btn">
+                <img src="../ASSETS/apex_logo.png" alt="Apex Bank" class="bank-logo">
+            </button>
+        </div>
+        
         <div style="display: none;">
-        <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
+            <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
             <div id="transactionAmount"><?php echo htmlspecialchars($total_amount); ?></div>
             <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
             <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
         </div>
     </form>
+
     <script src="../js/payment_selection.js"></script>
 </body>
 </html>
