@@ -31,6 +31,8 @@ $stmt->close();
     <title>Home</title>
     <link rel="stylesheet" href="../css/homepage_styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+
 </head>
 <body>
     <div class="overlay"></div>

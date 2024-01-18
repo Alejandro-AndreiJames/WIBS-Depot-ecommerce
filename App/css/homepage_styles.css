@@ -122,6 +122,10 @@ body {
 
 .first-section h1, .main-content h1, .third-section h1 {
     margin-left: 20px; /* Adjust the space to your liking */
+    font-size: 55px;
+    color: #000000;
+    font-weight: bold; /* Makes the text bold */
+    font-family: 'Poppins', sans-serif;
 }
 
 .content-wrapper-1, .content-wrapper-2, .content-wrapper-3 {
