@@ -63,6 +63,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
         </div>
     </form>
     <script src="../js/payment_selection.js"></script>
-    <button id="testButton">Test Update Status</button>
 </body>
 </html>
