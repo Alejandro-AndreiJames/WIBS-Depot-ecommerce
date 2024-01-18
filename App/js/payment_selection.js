@@ -1,42 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function checkSuccessParameter() {
+    function isFundTransferSuccessful() {
         const urlParams = new URLSearchParams(window.location.search);
-        const success = urlParams.get('fund_transfer_success');
-        return success === 'true';
+        return urlParams.get('fund_transfer_success') === 'true';
     }
 
     // Call updateTransactionStatus if 'success=true' is present in the URL
-    if (checkSuccessParameter()) {
-        updateTransactionStatus()
-            .then(() => console.log('Transaction status updated successfully'))
-            .catch(() => console.error('Failed to update transaction status'));
+    if (isFundTransferSuccessful()) {
+        updateTransactionStatus();
     }
 
     async function updateTransactionStatus() {
-        return new Promise((resolve, reject) => {
-            const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
-    
-            fetch('update_status.php', {
+        // Get the transaction ID or PO ID (however you wish to identify the transaction)
+        const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
+        
+        // Perform the update request
+        try {
+            const response = await fetch('update_status.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: 'po_id=' + poId
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    resolve(); // Resolve the promise on success
-                } else {
-                    console.error('Error updating transaction status:', data.message);
-                    reject(); // Reject the promise on failure
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                reject(); // Reject the promise on fetch error
             });
-        });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Transaction status updated successfully');
+            } else {
+                console.error('Error updating transaction status:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
     
 
@@ -92,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    checkSuccessParameter();
+                    isFundTransferSuccessful();
                     setTimeout(function () {
                         window.location.href = data.redirect_url;
                     }, 2000);
@@ -121,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleResponse(data) {
         if (data.success) {
-            checkSuccessParameter();
             setTimeout(() => {
                 window.location.href = data.redirect_url;
             }, 2000);
@@ -140,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            checkSuccessParameter();
+            isFundTransferSuccessful();
             window.location.href = data.location;
             return;
         }
