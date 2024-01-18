@@ -1,6 +1,6 @@
     <?php
     session_start();
-
+    include 'db_conn.php';
     // Check if the user is logged in, if not then redirect to login page
     if (!isset($_SESSION['user_name']) || !isset($_SESSION['user_id'])) {
         header("Location: login.php"); // Adjust the path as necessary
@@ -22,41 +22,59 @@
         3 => 'Completed'
     ];
 
+    $bankAccountQuery = "SELECT vrzn_num, apex_num FROM customer WHERE customer_id = ?";
+    $stmt = $conn->prepare($bankAccountQuery);
+    $stmt->bind_param("i", $userId); // Changed to $userId
+    $stmt->execute();
+    $stmt->bind_result($vrzn_num, $apex_num);
+    $stmt->fetch();
+    $stmt->close();
+
+    $source_account_no = "";
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
+        $source_account_no = $_POST['selected_bank'] === 'vrzn' ? $vrzn_num : $apex_num;
+    }
+
+
     function displayOrders($numericStatus, $userId) {
         global $statusMap;
-
+    
         // Include database connection
         include 'db_conn.php';
-
+    
         // SQL query to fetch orders based on status and user ID
         $sql = "SELECT purchase_orders.*, order_delivery_info.delivery_reference_number FROM purchase_orders LEFT JOIN order_delivery_info ON purchase_orders.po_id = order_delivery_info.po_id WHERE purchase_orders.status = ? AND purchase_orders.user_id = ?";
-
+    
         // Prepare statement
         $stmt = $conn->prepare($sql);
-
+    
         // Check if the statement was prepared correctly
         if ($stmt === false) {
             die("Error preparing statement: " . $conn->error);
         }
-
+    
         // Bind parameters and execute query
         $stmt->bind_param("ii", $numericStatus, $userId);
         $stmt->execute();
-
+    
         // Check for errors in execution
         if ($stmt->error) {
             die("Error executing statement: " . $stmt->error);
         }
-
+    
         $result = $stmt->get_result();
-
+    
         // Check if any orders are found
         if ($result->num_rows == 0) {
             echo "No orders found for user ID $userId with status " . $statusMap[$numericStatus] . ".";
         } else {
             // Display each order
             while ($order = $result->fetch_assoc()) {
-                echo '<div class="order" onclick="openModal(' . $order['po_id'] . ', \'' . $order['delivery_reference_number'] . '\')">';
+                if ($numericStatus == 1) {
+                    echo '<div class="order" onclick="openPaymentModal(' . $order['po_id'] . ', \'' . $order['grand_total'] . '\')">';                
+                } else {
+                    echo '<div class="order" onclick="openModal(' . $order['po_id'] . ', \'' . $order['delivery_reference_number'] . '\')">';
+                }
                 echo '<p>Order No. ' . $order['po_id'] . '</p>';
                 echo '<p>User id: ' . $order['user_id'] . '</p>';
                 echo '<p>Grand Total: ' . $order['grand_total'] . '</p>';
@@ -66,11 +84,12 @@
                 echo '</div>';
             }
         }
-
+    
         // Close statement and connection
         $stmt->close();
         $conn->close();
     }
+    
     ?>
 
     <!DOCTYPE html>
@@ -126,10 +145,28 @@
                 <div id="orderDetails"></div>
             </div>
         </div>
+
+        <div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePaymentModal()">&times;</span>
+        <h2>To Pay</h2>
+        <p id="modalGrandTotal"></p>
+        <p id="modalBankCode"></p>
+        <p id="modalRecipientNumber"></p>
+        <button id="vrznButton" onclick="processPayment('vrzn')">VRZN</button>
+        <button id="apexButton" onclick="processPayment('apex')">APEX</button>
+        <div style="display: none;">
+        <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
+        <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
+        </div>
+    </div>
+</div>
+    
         
     <footer class="site-footer">
             <p>&copy; 2023 WIBS. All rights reserved.</p>
     </footer>
     <script src="../js/order_status.js"></script>
+    <script src="../js/to_pay.js"></script>
     </body>
     </html>
