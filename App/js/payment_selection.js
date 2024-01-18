@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     function isFundTransferSuccessful() {
         const urlParams = new URLSearchParams(window.location.search);
+        console.log("URL Parameters:", urlParams.toString()); // Log the entire query string
+        console.log("Fund Transfer Success:", urlParams.get('fund_transfer_success')); // Log the specific parameter value
         return urlParams.get('fund_transfer_success') === 'true';
     }
 
