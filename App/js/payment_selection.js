@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return urlParams.get('fund_transfer_success') === 'true';
     }
 
-    // Call updateTransactionStatus if 'success=true' is present in the URL
     if (isFundTransferSuccessful()) {
         updateTransactionStatus();
     }
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: 'po_id=' + poId
+                body: 'po_id=' + encodeURIComponent(poId)
             });
 
             const data = await response.json();
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
         }
     }
-    
 
     fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
     .then(response => response.json())
@@ -88,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    isFundTransferSuccessful();
                     setTimeout(function () {
                         window.location.href = data.redirect_url;
                     }, 2000);
@@ -135,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            isFundTransferSuccessful();
             window.location.href = data.location;
             return;
         }
