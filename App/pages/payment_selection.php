@@ -49,12 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
         </div>
         
         <div class="bank-selection">
-            <button type="submit" name="selected_bank" value="vrzn" class="bank-btn">
-                <img src="../ASSETS/vrzn_logo.png" alt="Vrzn Bank" class="bank-logo">
-            </button>
-            <button type="submit" name="selected_bank" value="apex" class="bank-btn">
-                <img src="../ASSETS/apex_logo.png" alt="Apex Bank" class="bank-logo">
-            </button>
+        <button type="submit" id="vrznButton" name="selected_bank" value="vrzn" class="bank-btn">
+            <img src="../ASSETS/vrzn_logo.png" alt="Vrzn Bank" class="bank-logo">
+        </button>
+        <button type="submit" id="apexButton" name="selected_bank" value="apex" class="bank-btn">
+            <img src="../ASSETS/apex_logo.png" alt="Apex Bank" class="bank-logo">
+        </button>
         </div>
         
         <div style="display: none;">

@@ -94,6 +94,7 @@
             </div>
             <div class="profile-name">
                 <strong><?php echo htmlspecialchars($username); ?></strong>
+                |
                 <form action="logout.php" method="post">
                 <input type="submit" value="Logout">
                 </form>
