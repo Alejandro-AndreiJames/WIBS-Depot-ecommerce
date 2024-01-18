@@ -1,20 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    async function updatePOStatus(po_id) {
+    async function updatePOStatus() {
+        const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
         let url = '../pages/update_status.php'; // URL to your PHP script that updates the PO status
         let response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: `po_id=${po_id}`
+            body: 'po_id=' + encodeURIComponent(poId)
         });
         let data = await response.json();
         if (!data.success) {
             console.error('Failed to update PO status:', data.message);
+        }else {
+            console.error('Error updating transaction status:', data.message);
         }
     }
     
+    console.log("PO ID:", poId);
+    console.log("Sending request to:", url);
+    // and within the response handling
+    console.log("Response data:", data);
+
     fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
     .then(response => response.json())
     .then(data => {
@@ -68,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then((data) => {
                 if (data.success) {
                     // Update po_id status in the database
-                    updatePOStatus(po_id).then(() => {
+                    updatePOStatus().then(() => {
                         setTimeout(function () {
                             window.location.href = data.redirect_url;
                         }, 2000);
@@ -94,16 +102,18 @@ document.addEventListener('DOMContentLoaded', function() {
             let APIResponse = await fetchAPI(url, requestBody);
             handleResponse(APIResponse).then(() =>{
                 // Update po_id status in the database
-                updatePOStatus(po_id);
+                updatePOStatus();
             });
         }
     }
 
     async function handleResponse(data) {
         if (data.success) {
-            setTimeout(() => {
-                window.location.href = data.redirect_url;
-            }, 2000);
+            updatePOStatus().then(() => {
+                setTimeout(function () {
+                    window.location.href = data.redirect_url;
+                }, 2000);
+            });
         } else {
             console.error('Error recording transaction:', data.message);
         }
