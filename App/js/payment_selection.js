@@ -70,10 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let transactionAmount = document.getElementById('transactionAmount').innerText;
         let vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
-        //let recipientAccountNo = sellerDetails.seller_account_number;
-        let recipientAccountNo = 189960486386;
-        //let bankCode = sellerDetails.seller_bank_code;
-        let bankCode = "APEX";
+        let recipientAccountNo = sellerDetails.seller_account_number;
+        let bankCode = sellerDetails.seller_bank_code;
         let redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
         
         if (bank === 'vrzn') {
@@ -107,8 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         } else if (bank === 'apex') {
             let sourceAccountNo = apexAccountNo;
-            //let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
-            let url = "https://apexapp.tech/app/client/backend/api/fund-transfer.php";
+            let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
 
             let requestBody = new FormData();
             requestBody.append('redirect_url', redirectUrl);
