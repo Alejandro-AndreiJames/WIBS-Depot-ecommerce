@@ -66,7 +66,7 @@
     
         // Check if any orders are found
         if ($result->num_rows == 0) {
-            echo "No orders found for user ID $userId with status " . $statusMap[$numericStatus] . ".";
+            echo "No orders found with status " . $statusMap[$numericStatus] . ".";
         } else {
             // Display each order
             while ($order = $result->fetch_assoc()) {
@@ -75,12 +75,31 @@
                 } else {
                     echo '<div class="order" onclick="openModal(' . $order['po_id'] . ', \'' . $order['delivery_reference_number'] . '\')">';
                 }
-                echo '<p>Order No. ' . $order['po_id'] . '</p>';
-                echo '<p>User id: ' . $order['user_id'] . '</p>';
-                echo '<p>Grand Total: ' . $order['grand_total'] . '</p>';
-                echo '<p>Customer Name: ' . $order['customer_name'] . '</p>';
-                echo '<p>Delivery Address: ' . $order['delivery_address'] . '</p>';
-                echo '<p>Status: ' . $statusMap[$numericStatus] . '</p>'; // Display textual status
+    
+                // Decode the JSON data from the 'items' column
+                $items = json_decode($order['items'], true);
+    
+                // Check if items data is available and is an array
+                if (is_array($items)) {
+                    echo '<div class="order-items">';
+                    foreach ($items as $item) {
+                        // Fetch item name from the API
+                        $apiUrl = "https://www.thefusionseller.online/api_endpoints/get_item.php?item_id=" . $item['item_id'];
+                        $apiResponse = file_get_contents($apiUrl);
+                        $apiData = json_decode($apiResponse, true);
+        
+                        $itemName = isset($apiData[0]['item_name']) ? $apiData[0]['item_name'] : 'Unknown Item';
+        
+                        echo '<p>' . htmlspecialchars($itemName) . '</p>';
+                        echo '<p>Quantity: ' . htmlspecialchars($item['qty']) . '</p>';
+                        echo '<p>Price: ' . htmlspecialchars($item['price']) . '</p>';
+                        echo '<p>Total Price: ' . htmlspecialchars($item['total_price']) . '</p>';
+                    }
+                    echo '</div>';
+                } else {
+                    echo '<p>No item details available.</p>';
+                }
+    
                 echo '</div>';
             }
         }

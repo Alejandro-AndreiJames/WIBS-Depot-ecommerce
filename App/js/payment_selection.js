@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
             handleResponse(APIResponse);
         }
 
-        function handleResponse(data) {
+    async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
