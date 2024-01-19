@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     
+    function getURLParameter(name) {
+        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+    }
+
+    // Check the transaction status from URL parameters
+    let transactionStatus = getURLParameter('fund_transfer_success');
+
+    if (transactionStatus === 'true') {
+        // Call updateTransactionStatus if the transaction was successful
+        updateTransactionStatus();
+        document.getElementById('transactionStatus').textContent = 'Transaction Successful';
+    } else {
+        // Handle other statuses (failed, cancelled, etc.)
+        document.getElementById('transactionStatus').textContent = 'Transaction Failed: ';
+    }
+
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -45,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
-        let redirectUrl = 'https://wibs.tech/App/pages/success.php';
+        let redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
 
         let selectedBank = event.submitter.value; // This line is changed
 
