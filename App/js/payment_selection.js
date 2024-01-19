@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error fetching seller details:', error));
 
-
     document.querySelector('form').addEventListener('submit', async function(event) {
         event.preventDefault();
         // Fetch transaction details from session or form
@@ -52,24 +51,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (selectedBank === 'vrzn') {
             let sourceAccountNo = vrznAccountNo;
-            let apiURL = 'https://projectvrzn.online/vrzn-bank/app/database/transfer.php';
+            
+            const formData = new FormData();
 
-            fetch(apiURL, {
+            formData.append('source_account_no', sourceAccountNo);
+            formData.append('recipient_account_no', recipientAccountNo);
+            formData.append('transaction_amount', transactionAmount);
+            formData.append('recipient_bank_code', bankCode);
+            formData.append('redirect_url', redirectUrl);
+
+            fetch('https://projectvrzn.online/vrzn-bank/app/database/transfer.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    transaction_amount: transactionAmount,
-                    source_account_no: sourceAccountNo,
-                    recipient_account_no: recipientAccountNo,
-                    bank_code: bankCode,
-                    redirect_url: redirectUrl
+                body: formData // Use the FormData object as the body
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log('Fetch success:', data);
+                  if (data.success) {
+                    window.location.href = data.redirect_url;
+                  } else {
+                    console.error('Transfer Failed:', data.message);
+                  }
                 })
-            })
-            .then(response => response.json())
-            .then(handleResponse)
-            .catch(handleError);
+                .catch((error) => {
+                  console.error('Fetch Error:', error);
+                });
+
         } else if (selectedBank === 'apex') {
             let sourceAccountNo = apexAccountNo;
             let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
@@ -85,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             handleResponse(APIResponse);
         }
 
-    async function handleResponse(data) {
+        async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
@@ -96,9 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        function handleError(error) {
-            console.error('Fetch error:', error);
-        }
     });
 
     async function fetchAPI(url, requestBody) {
