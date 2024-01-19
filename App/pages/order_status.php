@@ -94,6 +94,7 @@
                         echo '<p>Quantity: ' . htmlspecialchars($item['qty']) . '</p>';
                         echo '<p>Price: ' . htmlspecialchars($item['price']) . '</p>';
                         echo '<p>Total Price: ' . htmlspecialchars($item['total_price']) . '</p>';
+                        echo '--------------------------------------------------------------------';
                     }
                     echo '</div>';
                 } else {
