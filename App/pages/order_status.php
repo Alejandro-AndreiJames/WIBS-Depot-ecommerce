@@ -1,4 +1,4 @@
-    <?php
+<?php
     session_start();
     include 'db_conn.php';
     // Check if the user is logged in, if not then redirect to login page
@@ -121,6 +121,19 @@
         $conn->close();
     }
     
+    function hasItemsInCart($userId) {
+        global $conn;
+    
+        $query = "SELECT COUNT(*) FROM cart WHERE user_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
+    }
     ?>
 
     <!DOCTYPE html>
@@ -140,7 +153,7 @@
             <div class="nav-links">
                 <a href="homepage.php">Home</a>
                 <a href="order_status.php">Order Status</a>
-                <a href="cart.php">My Cart</a>
+                <a href="cart.php">My Cart<?php if (hasItemsInCart($userId)) echo '<span class="red-dot"></span>'; ?></a>
             </div>
             <div class="profile-name">
                 <strong><?php echo htmlspecialchars($username); ?></strong>
