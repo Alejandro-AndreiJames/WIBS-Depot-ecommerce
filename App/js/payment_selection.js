@@ -1,16 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    function checkForSuccessfulTransaction() {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const fundTransfer = urlParams.get('fund_transfer_success');
-        if (fundTransfer === 'true') {
-            updateTransactionStatus();
-        }
-    }
-
-    checkForSuccessfulTransaction();
-
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -31,6 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error:', error);
         });
+    }
+
+    function onTransactionSuccess(redirectUrl) {
+        updateTransactionStatus(); // Update the transaction status
+        window.location.href = redirectUrl; // Redirect to the specified URL
     }
 
     fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
@@ -79,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    window.location.href = data.redirect_url;
+                    onTransactionSuccess(data.redirect_url);
                   } else {
                     console.error('Transfer Failed:', data.message);
                   }
@@ -106,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
-                    window.location.href = data.redirect_url;
+                    onTransactionSuccess(data.redirect_url);
                 }, 2000);
             } else {
                 console.error('Error recording transaction:', data.message);

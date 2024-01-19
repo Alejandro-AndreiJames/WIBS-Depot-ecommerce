@@ -86,24 +86,30 @@ function openPaymentModal(poId, grandTotal) {
     
         if (selectedBank === 'vrzn') {
             let sourceAccountNo = vrznAccountNo;
-            let apiURL = 'https://projectvrzn.online/vrzn-bank/app/database/transfer.php';
-    
-            fetch(apiURL, {
+            const formData = new FormData();
+
+            formData.append('source_account_no', sourceAccountNo);
+            formData.append('recipient_account_no', recipientAccountNo);
+            formData.append('transaction_amount', transactionAmount);
+            formData.append('recipient_bank_code', bankCode);
+            formData.append('redirect_url', redirectUrl);
+
+            fetch('https://projectvrzn.online/vrzn-bank/app/database/transfer.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    transaction_amount: transactionAmount,
-                    source_account_no: sourceAccountNo,
-                    recipient_account_no: recipientAccountNo,
-                    bank_code: bankCode,
-                    redirect_url: redirectUrl
+                body: formData // Use the FormData object as the body
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log('Fetch success:', data);
+                  if (data.success) {
+                    window.location.href = data.redirect_url;
+                  } else {
+                    console.error('Transfer Failed:', data.message);
+                  }
                 })
-            })
-            .then(response => response.json())
-            .then(handleResponse)
-            .catch(handleError);
+                .catch((error) => {
+                  console.error('Fetch Error:', error);
+                });
         } else if (selectedBank === 'apex') {
             let sourceAccountNo = apexAccountNo;
             let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
