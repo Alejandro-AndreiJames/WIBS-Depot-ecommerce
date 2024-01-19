@@ -1,5 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     
+    function checkForSuccessfulTransaction() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const fundTransfer = urlParams.get('fund_transfer_success');
+        if (fundTransfer === 'true') {
+            updateTransactionStatus();
+        }
+    }
+
+    checkForSuccessfulTransaction();
+
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -97,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
                 }, 2000);
-                updateTransactionStatus();
             } else {
                 console.error('Error recording transaction:', data.message);
             }
@@ -115,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
