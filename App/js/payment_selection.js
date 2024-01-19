@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function onTransactionSuccess(redirectUrl) {
-        updateTransactionStatus(); // Update the transaction status
-        window.location.href = redirectUrl; // Redirect to the specified URL
-    }
-
     fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
     .then(response => response.json())
     .then(data => {
@@ -50,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
-        let redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let redirectUrl = 'https://wibs.tech/App/pages/success.php';
 
         let selectedBank = event.submitter.value; // This line is changed
 
@@ -73,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    onTransactionSuccess(data.redirect_url);
                   } else {
                     console.error('Transfer Failed:', data.message);
                   }
@@ -119,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            onTransactionSuccess(data.redirect_url);
             window.location.href = data.location;
             return;
         }
