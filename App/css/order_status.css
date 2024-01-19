@@ -6,20 +6,6 @@ body {
   padding-bottom: 120px;
 }
 
-.text {
-  color: #ffffff;
-}
-
-.no-orders {
-  text-align: center;
-}
-
-.no-orders img.status-icon {
-  max-width: 100px; /* Adjust size as needed */
-  margin: 0 auto; /* Center the image */
-  display: block; /* Makes the image a block element to allow for margin auto to work */
-}
-
 .navbar {
   background-color: #0B464E;
   color: white;
@@ -98,17 +84,15 @@ a:hover {
 
 .column {
   flex: 1;
-  margin: 20px;
+  margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #255763;
   transition: background-color 0.3s;
   text-align: center;
-  box-sizing: border-box;
+  box-sizing: border-box; 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enables vertical scrolling */
-  height: 600px; /* Fixed height for the column. Adjust as needed */
 }
 
 
@@ -127,7 +111,7 @@ h2{
 }
 
 .order:hover {
-  background-color: #f5f5f5e7;
+  background-color: #f5f5f5;
 }
 
 .modal {
@@ -178,4 +162,14 @@ h2{
   padding: 20px 0;
   font-size: 16px;
   z-index: 100;
+}
+
+.red-dot {
+  height: 10px;
+  width: 10px;
+  background-color: rgb(252, 36, 36);
+  border-radius: 50%;
+  position: absolute; /* Positions the red dot in relation to the parent link */
+  top: 6px;            /* Adjusts the top position */
+  right: 3px;       /* Adjusts the right position */
 }
