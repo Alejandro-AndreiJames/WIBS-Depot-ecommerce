@@ -64,10 +64,21 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log(data);
                 showAlert(`Successfully added ${quantity} x ${itemName} to your cart.`);  
+                updateCartIconWithRedDot(); 
                 closePopup();
             })
             .catch(error => console.error('Error:', error));
         }
+
+        function updateCartIconWithRedDot() {
+            const cartLink = document.querySelector('.nav-links a[href="cart.php"]');
+            if (!cartLink.querySelector('.red-dot')) {
+                const redDot = document.createElement('span');
+                redDot.className = 'red-dot';
+                cartLink.appendChild(redDot);
+            }
+        }
+
 
         function showAlert(message) {
             const alertBox = document.getElementById('customAlert');

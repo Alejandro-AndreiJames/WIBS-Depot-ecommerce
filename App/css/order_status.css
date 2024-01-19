@@ -6,6 +6,20 @@ body {
   padding-bottom: 120px;
 }
 
+.text {
+  color: #ffffff;
+}
+
+.no-orders {
+  text-align: center;
+}
+
+.no-orders img.status-icon {
+  max-width: 100px; /* Adjust size as needed */
+  margin: 0 auto; /* Center the image */
+  display: block; /* Makes the image a block element to allow for margin auto to work */
+}
+
 .navbar {
   background-color: #0B464E;
   color: white;
@@ -84,7 +98,7 @@ a:hover {
 
 .column {
   flex: 1;
-  margin: 10px;
+  margin: 20px;
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #255763;
@@ -93,6 +107,8 @@ a:hover {
   box-sizing: border-box; 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enables vertical scrolling */
+  height: 600px;
 }
 
 
@@ -111,7 +127,7 @@ h2{
 }
 
 .order:hover {
-  background-color: #f5f5f5;
+  background-color: #f5f5f5e7;
 }
 
 .modal {
