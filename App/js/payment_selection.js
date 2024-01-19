@@ -1,21 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    function getURLParameter(name) {
-        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-    }
-
-    // Check the transaction status from URL parameters
-    let transactionStatus = getURLParameter('fund_transfer_success');
-
-    if (transactionStatus === 'true') {
-        // Call updateTransactionStatus if the transaction was successful
-        updateTransactionStatus();
-        document.getElementById('transactionStatus').textContent = 'Transaction Successful';
-    } else {
-        // Handle other statuses (failed, cancelled, etc.)
-        document.getElementById('transactionStatus').textContent = 'Transaction Failed: ';
-    }
-
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -84,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
+                    updateTransactionStatus();
+                    window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
                   }
@@ -110,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
+                    updateTransactionStatus();
                     window.location.href = data.redirect_url;
                 }, 2000);
             } else {
@@ -129,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
+            updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
