@@ -66,7 +66,18 @@
     
         // Check if any orders are found
         if ($result->num_rows == 0) {
-            echo "No orders found with status " . $statusMap[$numericStatus] . ".";
+            // Select the appropriate icon based on the status
+            $iconMap = [
+                1 => 'icon1.png',
+                2 => 'icon2.png',
+                3 => 'icon3.png'
+            ];
+            $iconFile = $iconMap[$numericStatus];
+    
+            echo "<div class='no-orders'>";
+            echo "<img src='../ASSETS/$iconFile' alt='No Orders' />";
+            echo "<div class='text'><p>No orders found with status " . $statusMap[$numericStatus] . ".</p></div>";
+            echo "</div>";
         } else {
             // Display each order
             while ($order = $result->fetch_assoc()) {
