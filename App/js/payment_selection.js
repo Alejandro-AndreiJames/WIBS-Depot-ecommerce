@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
-                    onTransactionSuccess(data.redirect_url);
+                    window.location.href = data.redirect_url;
                 }, 2000);
             } else {
                 console.error('Error recording transaction:', data.message);
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
+            onTransactionSuccess(data.redirect_url);
             window.location.href = data.location;
             return;
         }
