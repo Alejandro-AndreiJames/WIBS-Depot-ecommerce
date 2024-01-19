@@ -154,17 +154,17 @@
                         while ($row = $result->fetch_assoc()) {
                             echo '<form class="item" action="" method="post">';
                             echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
+                            echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
                             echo '<div class="item-info">';
                             echo '<p>Item Name: ' . $row['item_name'] . '</p>';
                             echo '<p>Quantity: ' . $row['quantity'] . '</p>';
                             echo '<p>Price: ₱' . $row['item_price'] . '</p>';
-                            echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
                             echo '</div>';
                             echo '<div class="remove-button">';
                             echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
                             echo '</div>';
-                            $total_amount += $row['item_price'] * $row['quantity'];
                             echo '</form>'; 
+                            $total_amount += $row['item_price'] * $row['quantity'];
                         }
                         echo '<div class="total-amount">';
                         echo '<p>Total Amount: ₱' . $total_amount . '</p>';
