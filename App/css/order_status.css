@@ -6,6 +6,20 @@ body {
   padding-bottom: 120px;
 }
 
+.text {
+  color: #ffffff;
+}
+
+.no-orders {
+  text-align: center;
+}
+
+.no-orders img.status-icon {
+  max-width: 100px; /* Adjust size as needed */
+  margin: 0 auto; /* Center the image */
+  display: block; /* Makes the image a block element to allow for margin auto to work */
+}
+
 .navbar {
   background-color: #0B464E;
   color: white;
