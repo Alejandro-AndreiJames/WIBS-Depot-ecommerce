@@ -168,6 +168,7 @@
 
         <div id="paymentModal" class="modal">
     <div class="modal-content">
+        <div id="poIdElement" style="display:none;"></div>
         <span class="close" onclick="closePaymentModal()">&times;</span>
         <h2>To Pay</h2>
         <p id="modalGrandTotal"></p>

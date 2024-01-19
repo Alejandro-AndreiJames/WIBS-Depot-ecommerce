@@ -1,5 +1,15 @@
 function updateTransactionStatus() {
-    const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
+    var poIdElement = document.getElementById('poIdElement');
+    if (!poIdElement) {
+        console.error('PO ID element not found');
+        return;
+    }
+
+    const poId = poIdElement.getAttribute('data-po-id');
+    if (!poId) {
+        console.error('PO ID not set');
+        return;
+    }
 
     fetch('update_status.php', {
         method: 'POST',
@@ -42,6 +52,15 @@ function openPaymentModal(poId, grandTotal) {
     // Display the modal
     var modal = document.getElementById('paymentModal');
     modal.style.display = "block";
+
+
+    var poIdElement = document.getElementById('poIdElement');
+    if (poIdElement) {
+        poIdElement.setAttribute('data-po-id', poId);
+    }
+
+    console.log(poId);
+
 }
     function closePaymentModal() {
         var modal = document.getElementById('paymentModal');
@@ -102,10 +121,10 @@ function openPaymentModal(poId, grandTotal) {
     
         function handleResponse(data) {
             if (data.success) {
+                updateTransactionStatus();
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
-                }, 2000);
-                updateTransactionStatus();
+                }, 2000);             
             } else {
                 console.error('Error recording transaction:', data.message);
             }
@@ -126,6 +145,7 @@ function openPaymentModal(poId, grandTotal) {
         let data = await response.json();
     
         if (statusCode === 302) {
+            updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
