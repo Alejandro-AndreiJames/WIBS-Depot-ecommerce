@@ -84,15 +84,17 @@ a:hover {
 
 .column {
   flex: 1;
-  margin: 10px;
+  margin: 20px;
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #255763;
   transition: background-color 0.3s;
   text-align: center;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enables vertical scrolling */
+  height: 600px; /* Fixed height for the column. Adjust as needed */
 }
 
 
