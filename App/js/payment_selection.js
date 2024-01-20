@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
-        //let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
-        let redirectUrl ='https://wibs.tech/App/pages/order_status.php';
+        let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let redirectUrl ='https://wibs.tech/App/pages/order_status.php?';
 
         let selectedBank = event.submitter.value; // This line is changed
 
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
 
             let requestBody = new FormData();
-            requestBody.append('redirect_url', redirectUrl);
+            requestBody.append('redirect_url', baseRedirectUrl);
             requestBody.append('transaction_amount', transactionAmount);
             requestBody.append('source_account_no', sourceAccountNo);
             requestBody.append('recipient_account_no', recipientAccountNo);
