@@ -62,6 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
             <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
         </div>
     </form>
+    <footer class="site-footer">
+        <p>&copy; 2023 WIBS. All rights reserved.</p>
+    </footer>
     <script src="../js/payment_selection.js"></script>
 </body>
 </html>
