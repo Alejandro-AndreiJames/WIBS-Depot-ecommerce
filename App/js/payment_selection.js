@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
+                    window.location.href = data.redirect_url;
                   }
                 })
                 .catch((error) => {
