@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 alertBox.classList.remove('show');
                 overlay.classList.remove('visible');
-            }, 3000);
+            }, 1500);
         }
     }
     

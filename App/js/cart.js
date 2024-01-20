@@ -33,5 +33,5 @@ function showNotification(message) {
         setTimeout(function() {
             document.body.removeChild(notification);
         }, 200);
-    }, 3000);
+    }, 1500);
 }
