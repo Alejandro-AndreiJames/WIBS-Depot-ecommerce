@@ -115,6 +115,7 @@
             <meta charset="UTF-8">
             <title>My Cart</title>
             <link rel="stylesheet" href="../css/cart.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         </head>
         <body>
         <div class="overlay"></div>
