@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error fetching seller details:', error));
 
     document.querySelector('form').addEventListener('submit', async function(event) {
-        checkTransactionStatus();
         event.preventDefault();
         // Fetch transaction details from session or form
         let transactionAmount = document.getElementById('transactionAmount').innerText;
@@ -69,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
+                    checkTransactionStatus();
                     //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
+                    checkTransactionStatus();
                     //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                 }, 2000);
@@ -118,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
+            checkTransactionStatus();
             //updateTransactionStatus();
             window.location.href = data.location;
             return;
