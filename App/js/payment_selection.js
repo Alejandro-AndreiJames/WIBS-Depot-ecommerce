@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             } else {
                 console.error('Error recording transaction:', data.message);
+                window.location.href = data.redirect_url;
             }
         }
 
