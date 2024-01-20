@@ -143,6 +143,7 @@
                 <h1>My Cart</h1>
             </div>
             <div class="main">
+                <div class="cart-list">
                 <div class="cart-items">
                     <?php
                     $total_amount = 0;
@@ -166,15 +167,22 @@
                             echo '</form>'; 
                             $total_amount += $row['item_price'] * $row['quantity'];
                         }
-                        echo '<div class="total-amount">';
-                        echo '<p>Total Amount: ₱' . $total_amount . '</p>';
-                        echo '</div>';
                     } else {
                         echo '<p>Your cart is empty.</p>';
                     }
                     ?>
                 </div>
+                </div>
+                
                 <div class="order-summary">
+                    <div class="total">
+                    <?php
+                        echo '<div class="total-amount">';
+                        echo '<p>Total Amount Due </p>';
+                        echo '<p class="price">₱' . $total_amount . '</p>';
+                        echo '</div>';
+                    ?>
+                    </div>
                     <div class="order-form">
                     <?php
                     $_SESSION['total_amount'] = $total_amount;
