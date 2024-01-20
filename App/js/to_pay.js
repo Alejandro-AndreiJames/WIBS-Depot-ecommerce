@@ -102,6 +102,7 @@ function openPaymentModal(poId, grandTotal) {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
+                    updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
