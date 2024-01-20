@@ -1,40 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    checkTransactionStatus();
-    function checkTransactionStatus() {
-        alert("checkTransactionStatus function is called");
-        const urlParams = new URLSearchParams(window.location.search);
-        const transactionStatus = urlParams.get('fund_transfer_success');
-
-        if (transactionStatus === 'true') {
-                updateTransactionStatus();
-        } else {
-            console.error('User indicated transaction was not completed.');
-            }
-        }
-
-        function updateTransactionStatus() {
-            const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
-    
-            fetch('update_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'po_id=' + poId
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                } else {
-                    console.error('Error updating transaction status:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }        
-
-   function fetchDeliveryHistory(deliveryReferenceNumber) {
+    function fetchDeliveryHistory(deliveryReferenceNumber) {
         fetch(`https://cybertechlogistic.online/app/controller/get-delivery-history-api.php?delivery_reference_number=${deliveryReferenceNumber}`)
             .then(response => response.json())
             .then(data => {
@@ -79,4 +43,3 @@ function openModal(orderId, deliveryReferenceNumber) {
         var orderDetailsDiv = document.getElementById('orderDetails');
         orderDetailsDiv.innerHTML = ''; // Clear order details when closing modal
     }
-});
