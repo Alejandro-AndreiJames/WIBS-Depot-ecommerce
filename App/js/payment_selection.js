@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    checkTransactionStatus();
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -38,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error fetching seller details:', error));
 
     document.querySelector('form').addEventListener('submit', async function(event) {
+        checkTransactionStatus();
         event.preventDefault();
         // Fetch transaction details from session or form
         let transactionAmount = document.getElementById('transactionAmount').innerText;
