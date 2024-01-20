@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+    checkTransactionStatus();
     function updateTransactionStatus() {
         const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkTransactionStatus() {
-        console.log("checkTransactionStatus function is called");
+        alert("checkTransactionStatus function is called");
         const urlParams = new URLSearchParams(window.location.search);
         const transactionStatus = urlParams.get('fund_transfer_success');
 
@@ -138,5 +138,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('User indicated transaction was not completed.');
             }
         }
-    checkTransactionStatus();
 });
