@@ -189,7 +189,25 @@ h2{
   width: 10px;
   background-color: rgb(252, 36, 36);
   border-radius: 50%;
-  position: absolute; /* Positions the red dot in relation to the parent link */
-  top: 6px;            /* Adjusts the top position */
-  right: 3px;       /* Adjusts the right position */
+  position: absolute; 
+  top: 6px;            
+  right: 3px;      
+}
+
+.column::-webkit-scrollbar {
+  width: 13px; 
+}
+
+.column::-webkit-scrollbar-track {
+  background: #cfd8dc; 
+}
+
+.column::-webkit-scrollbar-thumb {
+  background: #77838a; 
+  border-radius: 6px; 
+  border: none; 
+}
+
+.column::-webkit-scrollbar-thumb:hover {
+  background: #90a4ae; 
 }

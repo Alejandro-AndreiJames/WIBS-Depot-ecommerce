@@ -115,6 +115,7 @@
             <meta charset="UTF-8">
             <title>My Cart</title>
             <link rel="stylesheet" href="../css/cart.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         </head>
         <body>
         <div class="overlay"></div>
@@ -168,7 +169,10 @@
                             $total_amount += $row['item_price'] * $row['quantity'];
                         }
                     } else {
+                        echo '<div class= "empty">';
+                        echo '<img src="../ASSETS/icon4.png" alt="Empty Cart Icon" class="empty-cart-icon">';
                         echo '<p>Your cart is empty.</p>';
+                        echo '</div>';
                     }
                     ?>
                 </div>

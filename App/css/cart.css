@@ -8,8 +8,8 @@ body {
 .my-cart {
     text-align: center;
     margin: 0px; 
-    font-size: 25px;
-    padding-bottom: 0px;
+    font-size: 20px;
+    padding-bottom: 25px;
 }
 
 .navbar {
@@ -255,11 +255,10 @@ body {
     width: 10px;
     background-color: rgb(252, 36, 36);
     border-radius: 50%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(50%, -50%); 
-}
+    position: absolute; /* Positions the red dot in relation to the parent link */
+    top: 6px;            /* Adjusts the top position */
+    right: 3px;       /* Adjusts the right position */
+  }
 
 .order-summary {
     padding: 10px;
@@ -321,4 +320,22 @@ body {
     padding: 20px 0;
     font-size: 16px;
     z-index: 100;
+}
+
+.cart-items::-webkit-scrollbar {
+    width: 13px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+    background: #cfd8dc; 
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+    background: #77838a;
+    border-radius: 6px;
+    border: none;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+    background: #90a4ae;
 }
