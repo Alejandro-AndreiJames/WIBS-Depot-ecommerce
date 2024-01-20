@@ -168,7 +168,10 @@
                             $total_amount += $row['item_price'] * $row['quantity'];
                         }
                     } else {
+                        echo '<div class= "empty">';
+                        echo '<img src="../ASSETS/icon4.png" alt="Empty Cart Icon" class="empty-cart-icon">';
                         echo '<p>Your cart is empty.</p>';
+                        echo '</div>';
                     }
                     ?>
                 </div>
