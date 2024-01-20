@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
-        let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
-        let redirectUrl = baseRedirectUrl + '?transaction=started';
+        //let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let redirectUrl ='https://wibs.tech/App/pages/order_status.php';
 
         let selectedBank = event.submitter.value; // This line is changed
 
@@ -103,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             } else {
                 console.error('Error recording transaction:', data.message);
-                window.location.href = data.redirect_url;
             }
         }
 
@@ -127,23 +126,16 @@ document.addEventListener('DOMContentLoaded', function() {
         data.statusCode = statusCode;
         return data;
     }
+
     function checkTransactionStatus() {
         const urlParams = new URLSearchParams(window.location.search);
-        const transactionStatus = urlParams.get('transaction');
+        const transactionStatus = urlParams.get('fund_transfer_success');
 
-        if (transactionStatus === 'started') {
-            // Prompt the user to confirm if the transaction was completed
-            const userConfirmed = confirm('Did you complete the transaction?');
-            if (userConfirmed) {
-                // Handle successful transaction scenario
+        if (transactionStatus === 'true') {
                 updateTransactionStatus();
-            } else {
-                // Handle transaction not completed scenario
-                console.error('User indicated transaction was not completed.');
+        } else {
+            console.error('User indicated transaction was not completed.');
             }
         }
-    }
-
-    // Call the checkTransactionStatus function when the page loads
     checkTransactionStatus();
 });
