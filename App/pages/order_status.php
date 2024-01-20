@@ -185,7 +185,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Order Details</h2>
+                <h2 class="order-header">Order Details</h2>
                 <div id="orderDetails"></div>
             </div>
         </div>
@@ -194,7 +194,7 @@
     <div class="modal-content">
         <div id="poIdElement" style="display:none;"></div>
         <span class="close" onclick="closePaymentModal()">&times;</span>
-        <h2>To Pay</h2>
+        <h2 class="pay-modal">To Pay</h2>
         <p id="modalGrandTotal"></p>
         <p id="modalBankCode"></p>
         <p id="modalRecipientNumber"></p>
