@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let apexAccountNo = document.getElementById('apexAccountNo').innerText;
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
-        let redirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let redirectUrl = baseRedirectUrl + '?transaction=started';
 
         let selectedBank = event.submitter.value; // This line is changed
 
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    updateTransactionStatus();
+                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
-                    updateTransactionStatus();
+                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                 }, 2000);
             } else {
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            updateTransactionStatus();
+            //updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
@@ -124,4 +125,23 @@ document.addEventListener('DOMContentLoaded', function() {
         data.statusCode = statusCode;
         return data;
     }
+    function checkTransactionStatus() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const transactionStatus = urlParams.get('transaction');
+
+        if (transactionStatus === 'started') {
+            // Prompt the user to confirm if the transaction was completed
+            const userConfirmed = confirm('Did you complete the transaction?');
+            if (userConfirmed) {
+                // Handle successful transaction scenario
+                updateTransactionStatus();
+            } else {
+                // Handle transaction not completed scenario
+                console.error('User indicated transaction was not completed.');
+            }
+        }
+    }
+
+    // Call the checkTransactionStatus function when the page loads
+    checkTransactionStatus();
 });
