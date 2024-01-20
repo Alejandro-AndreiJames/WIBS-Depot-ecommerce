@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkTransactionStatus() {
+        console.log("checkTransactionStatus function is called");
         const urlParams = new URLSearchParams(window.location.search);
         const transactionStatus = urlParams.get('fund_transfer_success');
 
