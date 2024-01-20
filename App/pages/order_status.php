@@ -201,6 +201,7 @@
         <button id="vrznButton" onclick="processPayment('vrzn')">VRZN</button>
         <button id="apexButton" onclick="processPayment('apex')">APEX</button>
         <div style="display: none;">
+        <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
         <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
         <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
         </div>
