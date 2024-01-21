@@ -115,6 +115,24 @@
                 echo '</div>';
             }
         }
+
+        if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
+            // Retrieve the po_id
+            $po_id = $_SESSION['po_id']; // Replace with your method of retrieving the po_id
+            ?>
+        
+            <!-- Hidden form -->
+            <form id="updateStatusForm" action="update_status.php" method="post" style="display:none;">
+                <input type="hidden" name="po_id" value="<?php echo htmlspecialchars($po_id); ?>">
+            </form>
+        
+            <script type="text/javascript">
+                // Automatically submit the form
+                document.getElementById('updateStatusForm').submit();
+            </script>
+        
+            <?php
+        }
     
         // Close statement and connection
         $stmt->close();

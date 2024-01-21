@@ -1,26 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    function updateTransactionStatus() {
-        const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
+    // function updateTransactionStatus() {
+    //     const poId = document.getElementById('poIdElement').getAttribute('data-po-id');
 
-        fetch('update_status.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'po_id=' + poId
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-            } else {
-                console.error('Error updating transaction status:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
+    //     fetch('update_status.php', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded'
+    //         },
+    //         body: 'po_id=' + poId
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.success) {
+    //         } else {
+    //             console.error('Error updating transaction status:', data.message);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+    // }
 
     fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
     .then(response => response.json())
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    updateTransactionStatus();
+                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         async function handleResponse(data) {
             if (data.success) {
                 setTimeout(function () {
-                    updateTransactionStatus();
+                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                 }, 2000);
             } else {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = await response.json();
 
         if (statusCode === 302) {
-            updateTransactionStatus();
+            //updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
