@@ -120,7 +120,9 @@ error_reporting(E_ALL);
 
         if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
             // Retrieve the po_id
-            $po_id = $_SESSION['po_id']; // Replace with your method of retrieving the po_id
+            //$po_id = $_SESSION['po_id']; // Replace with your method of retrieving the po_id
+            if (isset($_GET['po_id'])) 
+                $po_id = $_GET['po_id'];
             ?>
         
             <!-- Global variable for JavaScript -->
