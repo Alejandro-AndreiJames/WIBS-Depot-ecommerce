@@ -1,4 +1,5 @@
 <?php
+session_start();
     if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
         // Retrieve the po_id
         $po_id = $_SESSION['po_id']; // Replace with your method of retrieving the po_id
@@ -23,6 +24,7 @@
     <title>Success Page</title>
 </head>
 <body>
+    <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
     <h1>The Transaction is a Success</h1>
     <a href="./order_status.php">Back to Order Status</a>
 </body>
