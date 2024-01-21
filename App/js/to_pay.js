@@ -82,7 +82,8 @@ function openPaymentModal(poId, grandTotal) {
         var apexAccountNo = document.getElementById('apexAccountNo').innerText;
         var recipientAccountNo = document.getElementById('modalRecipientNumber').textContent;
         var bankCode = document.getElementById('modalBankCode').textContent;
-        var redirectUrl = 'https://wibs.tech/App/pages/order_status.php';  // Your redirect URL
+        let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
+        let redirectUrl ='https://wibs.tech/App/pages/order_status.php?';
     
         if (selectedBank === 'vrzn') {
             let sourceAccountNo = vrznAccountNo;
@@ -102,7 +103,7 @@ function openPaymentModal(poId, grandTotal) {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    updateTransactionStatus();
+                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
@@ -116,7 +117,7 @@ function openPaymentModal(poId, grandTotal) {
             let url = "https://apexapp.tech/app/client/backend/api/fund-transfer-external.php";
     
             let requestBody = new FormData();
-            requestBody.append('redirect_url', redirectUrl);
+            requestBody.append('redirect_url', baseRedirectUrl);
             requestBody.append('transaction_amount', transactionAmount);
             requestBody.append('source_account_no', sourceAccountNo);
             requestBody.append('recipient_account_no', recipientAccountNo);
@@ -128,17 +129,13 @@ function openPaymentModal(poId, grandTotal) {
     
         function handleResponse(data) {
             if (data.success) {
-                updateTransactionStatus();
+                //updateTransactionStatus();
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
                 }, 2000);             
             } else {
                 console.error('Error recording transaction:', data.message);
             }
-        }
-    
-        function handleError(error) {
-            console.error('Fetch error:', error);
         }
     }
     
@@ -152,7 +149,7 @@ function openPaymentModal(poId, grandTotal) {
         let data = await response.json();
     
         if (statusCode === 302) {
-            updateTransactionStatus();
+            //updateTransactionStatus();
             window.location.href = data.location;
             return;
         }
