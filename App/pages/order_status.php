@@ -211,11 +211,11 @@
         <span class="close" onclick="closePaymentModal()">&times;</span>
         <h2 class="pay-modal">To Pay</h2>
         <p id="modalGrandTotal"></p>
+        <button id="vrznButton" onclick="payment('vrzn')">VRZN</button>
+        <button id="apexButton" onclick="payment('apex')">APEX</button>
+        <div style="display: none;">
         <p id="modalBankCode"></p>
         <p id="modalRecipientNumber"></p>
-        <button id="vrznButton" onclick="processPayment('vrzn')">VRZN</button>
-        <button id="apexButton" onclick="processPayment('apex')">APEX</button>
-        <div style="display: none;">
         <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
         <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
         <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>

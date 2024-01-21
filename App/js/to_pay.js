@@ -1,14 +1,14 @@
-function openPaymentModal(poId, grandTotal) {
-    document.getElementById('modalGrandTotal').textContent = 'Grand Total: ' + grandTotal;
 
-    // Fetch the seller details
-    fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
+    function openPaymentModal(poId, grandTotal) {
+        document.getElementById('modalGrandTotal').textContent = grandTotal;
+    
+        fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data) && data.length > 0) {
                 const sellerDetails = data[0];
-                document.getElementById('modalBankCode').textContent = 'Bank Code: ' + sellerDetails.seller_bank_code;
-                document.getElementById('modalRecipientNumber').textContent = 'Recipient Number: ' + sellerDetails.seller_account_number;
+                document.getElementById('modalBankCode').textContent = sellerDetails.seller_bank_code;
+                document.getElementById('modalRecipientNumber').textContent = sellerDetails.seller_account_number;
             } else {
                 console.error('Response data is not an array or is empty');
             }
@@ -17,25 +17,26 @@ function openPaymentModal(poId, grandTotal) {
             console.error('Error fetching seller details:', error);
         });
 
-    // Display the modal
-    var modal = document.getElementById('paymentModal');
-    modal.style.display = "block";
+        var modal = document.getElementById('paymentModal');
+        modal.style.display = "block";
 
-}
+        // For closing the modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
     function closePaymentModal() {
         var modal = document.getElementById('paymentModal');
-        modal.style.display = "none";
-    }
-    
-    // For closing the modal when clicking outside of it
-    window.onclick = function(event) {
-        var modal = document.getElementById('paymentModal');
-        if (event.target == modal) {
+        if (modal) {
             modal.style.display = "none";
         }
     }
-    
-    async function processPayment(selectedBank) {
+
+    async function payment(selectedBank) {
         var transactionAmount = document.getElementById('modalGrandTotal').textContent;
         // Assume these elements contain the necessary account numbers
         var vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
@@ -66,6 +67,7 @@ function openPaymentModal(poId, grandTotal) {
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
+                    window.location.href = data.redirect_url;
                   }
                 })
                 .catch((error) => {
@@ -114,4 +116,3 @@ function openPaymentModal(poId, grandTotal) {
         data.statusCode = statusCode;
         return data;
     }
-    
