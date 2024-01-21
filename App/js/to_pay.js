@@ -63,7 +63,6 @@ function openPaymentModal(poId, grandTotal) {
                 .then((data) => {
                   console.log('Fetch success:', data);
                   if (data.success) {
-                    //updateTransactionStatus();
                     window.location.href = data.redirect_url;
                   } else {
                     console.error('Transfer Failed:', data.message);
@@ -89,7 +88,6 @@ function openPaymentModal(poId, grandTotal) {
     
         function handleResponse(data) {
             if (data.success) {
-                //updateTransactionStatus();
                 setTimeout(function () {
                     window.location.href = data.redirect_url;
                 }, 2000);             
@@ -109,7 +107,6 @@ function openPaymentModal(poId, grandTotal) {
         let data = await response.json();
     
         if (statusCode === 302) {
-            //updateTransactionStatus();
             window.location.href = data.location;
             return;
         }

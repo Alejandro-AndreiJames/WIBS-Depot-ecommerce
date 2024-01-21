@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
         function submitUpdateStatusForm() {
             const formData = new FormData();
             formData.append('po_id', poId);
-
+            console.log("Sending PO ID:", poId); 
+            
             fetch('update_status.php', {
                 method: 'POST',
                 body: formData

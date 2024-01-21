@@ -5,6 +5,7 @@ header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['po_id'])) {
     $po_id = $_POST['po_id'];
+    error_log("Received PO ID: " . $po_id);
     include 'db_conn.php';
 
     if ($conn->connect_error) {
