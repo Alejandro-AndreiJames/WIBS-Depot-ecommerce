@@ -3,6 +3,7 @@
         document.getElementById('modalGrandTotal').textContent = grandTotal;
         var poIdElement = document.getElementById('poIdElement');
         poIdElement.dataset.poId = poId;
+        console.log(poIdElement.dataset.poId);
 
         fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
         .then(response => response.json())
@@ -131,24 +132,22 @@
         const fundTransferSuccess = urlParams.get('fund_transfer_success');
     
         if (fundTransferSuccess === 'true') {
-            const formData = new FormData();
-            formData.append('po_id', poId);
-    
             fetch('update_status.php', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'po_id=' + poId
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log('Status updated successfully');
-                    //document.getElementById('poIdElement').dataset.poId = '';
                 } else {
-                    console.error('Failed to update status:', data.message);
+                    console.error('Error updating transaction status:', data.message);
                 }
             })
             .catch(error => {
-                console.error('Error updating status:', error);
+                console.error('Error:', error);
             });
         }
     }

@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
         </button>
         </div>
         <div style="display: none;">
-            <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
             <div id="transactionAmount"><?php echo htmlspecialchars($total_amount); ?></div>
             <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
             <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
