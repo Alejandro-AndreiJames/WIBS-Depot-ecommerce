@@ -1,7 +1,9 @@
 
     function openPaymentModal(poId, grandTotal) {
         document.getElementById('modalGrandTotal').textContent = grandTotal;
-    
+        var poIdElement = document.getElementById('poIdElement');
+        poIdElement.dataset.poId = poId;
+        
         fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
         .then(response => response.json())
         .then(data => {

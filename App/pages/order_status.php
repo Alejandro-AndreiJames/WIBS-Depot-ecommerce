@@ -216,7 +216,6 @@
         <div style="display: none;">
         <p id="modalBankCode"></p>
         <p id="modalRecipientNumber"></p>
-        <div id="poIdElement" data-po-id="<?php echo $_SESSION['po_id']; ?>" style="display:none;"></div> 
         <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
         <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
         </div>
