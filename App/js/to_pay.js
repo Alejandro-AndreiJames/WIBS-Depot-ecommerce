@@ -3,7 +3,7 @@
         document.getElementById('modalGrandTotal').textContent = grandTotal;
         var poIdElement = document.getElementById('poIdElement');
         poIdElement.dataset.poId = poId;
-        
+
         fetch('https://thefusionseller.online/api_endpoints/get_seller_account_details.php?seller_id=1')
         .then(response => response.json())
         .then(data => {
@@ -99,6 +99,12 @@
                 console.error('Error recording transaction:', data.message);
             }
         }
+
+        if (selectedBank === 'vrzn' || selectedBank === 'apex') {
+            let poId = document.getElementById('poIdElement').dataset.poId;
+            updateStatus(poId);
+        }
+
     }
     
     async function fetchAPI(url, requestBody) {
@@ -117,4 +123,32 @@
     
         data.statusCode = statusCode;
         return data;
+    }
+
+    function updateStatus(poId) {
+        // Check if the URL has the query string 'fund_transfer_success=true'
+        const urlParams = new URLSearchParams(window.location.search);
+        const fundTransferSuccess = urlParams.get('fund_transfer_success');
+    
+        if (fundTransferSuccess === 'true') {
+            const formData = new FormData();
+            formData.append('po_id', poId);
+    
+            fetch('update_status.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Status updated successfully');
+                    //document.getElementById('poIdElement').dataset.poId = '';
+                } else {
+                    console.error('Failed to update status:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating status:', error);
+            });
+        }
     }
