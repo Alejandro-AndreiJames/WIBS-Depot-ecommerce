@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const formData = new FormData();
             formData.append('po_id', poId);
             console.log("Sending PO ID:", poId); 
-            
+
             fetch('update_status.php', {
                 method: 'POST',
                 body: formData
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                // Handle the response here
+                window.location.reload();
             })
             .catch(error => console.error('Error:', error));
         }
