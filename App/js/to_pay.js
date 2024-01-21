@@ -40,14 +40,15 @@
     }
 
     async function payment(selectedBank) {
+        var poId = poIdElement.dataset.poId;
         var transactionAmount = document.getElementById('modalGrandTotal').textContent;
         // Assume these elements contain the necessary account numbers
         var vrznAccountNo = document.getElementById('vrznAccountNo').innerText;
         var apexAccountNo = document.getElementById('apexAccountNo').innerText;
         var recipientAccountNo = document.getElementById('modalRecipientNumber').textContent;
         var bankCode = document.getElementById('modalBankCode').textContent;
-        let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
-        let redirectUrl ='https://wibs.tech/App/pages/order_status.php?';
+        let baseRedirectUrl = `https://wibs.tech/App/pages/order_status.php?po_id=${poId}&`;
+        let redirectUrl =`https://wibs.tech/App/pages/order_status.php?po_id=${poId}`;
     
         if (selectedBank === 'vrzn') {
             let sourceAccountNo = vrznAccountNo;
@@ -101,11 +102,6 @@
             }
         }
 
-        if (selectedBank === 'vrzn' || selectedBank === 'apex') {
-            let poId = document.getElementById('poIdElement').dataset.poId;
-            updateStatus(poId);
-        }
-
     }
     
     async function fetchAPI(url, requestBody) {
@@ -124,30 +120,4 @@
     
         data.statusCode = statusCode;
         return data;
-    }
-
-    function updateStatus(poId) {
-        // Check if the URL has the query string 'fund_transfer_success=true'
-        const urlParams = new URLSearchParams(window.location.search);
-        const fundTransferSuccess = urlParams.get('fund_transfer_success');
-    
-        if (fundTransferSuccess === 'true') {
-            fetch('update_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'po_id=' + poId
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                } else {
-                    console.error('Error updating transaction status:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
     }
