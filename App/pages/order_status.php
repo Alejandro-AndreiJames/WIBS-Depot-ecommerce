@@ -121,16 +121,13 @@
             $po_id = $_SESSION['po_id']; // Replace with your method of retrieving the po_id
             ?>
         
-            <!-- Hidden form -->
-            <form id="updateStatusForm" action="update_status.php" method="post" style="display:none;">
-                <input type="hidden" name="po_id" value="<?php echo htmlspecialchars($po_id); ?>">
-            </form>
-        
+            <!-- Global variable for JavaScript -->
             <script type="text/javascript">
-                // Automatically submit the form
-                document.getElementById('updateStatusForm').submit();
+                var poId = <?php echo json_encode($po_id); ?>;
             </script>
         
+            <!-- Include External JavaScript file -->
+            <script src="../js/status_update.js"></script>
             <?php
         }
     
