@@ -46,7 +46,7 @@ $stmt->close();
             <a href="cart.php">My Cart<?php if ($hasCartItems) echo '<span class="red-dot"></span>'; ?></a>
         </div>
         <div class="profile-name">
-            <strong><?php echo $username?></strong>
+        <strong><a href="profile.php" style="color: inherit; text-decoration: none;"><?php echo $username ?></a></strong>
             |
             <form action="logout.php" method="post">
                 <input type="submit" value="Logout">
