@@ -24,6 +24,24 @@
             $userid = $_SESSION['user_id'];
             $username = $_SESSION['user_name'];
 
+            //update quantity
+            if (isset($_POST['update_quantity']) && isset($_POST['cart_id']) && isset($_POST['quantity'])) {
+                $cart_id = $_POST['cart_id'];
+                $new_quantity = $_POST['quantity'];
+            
+                // SQL to update item quantity
+                $sql_update = "UPDATE cart SET quantity = ? WHERE cart_id = ?";
+                $stmt = $conn->prepare($sql_update);
+                $stmt->bind_param("ii", $new_quantity, $cart_id);
+                if ($stmt->execute()) {
+                    echo "Quantity updated successfully";
+                } else {
+                    echo "Error updating record: " . $conn->error;
+                }
+                $stmt->close();
+            }
+            
+
             // Check if remove item request is set
             $itemRemoved = false; // Variable to track if an item was removed
                 if (isset($_POST['remove_item']) && isset($_POST['cart_id'])) {
@@ -159,15 +177,17 @@
                             echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
                             echo '<div class="item-info">';
                             echo '<p>Item Name: ' . $row['item_name'] . '</p>';
-                            echo '<p>Quantity: ' . $row['quantity'] . '</p>';
+                            // Quantity input
+                            echo '<p>Quantity: <input type="number" name="quantity" value="' . $row['quantity'] . '" min="1"></p>';
                             echo '<p>Price: ₱' . $row['item_price'] . '</p>';
                             echo '</div>';
                             echo '<div class="remove-button">';
+                            echo '<button type="submit" name="update_quantity">Update</button>';
                             echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
                             echo '</div>';
                             echo '</form>'; 
                             $total_amount += $row['item_price'] * $row['quantity'];
-                        }
+                        }                        
                     } else {
                         echo '<div class= "empty">';
                         echo '<img src="../ASSETS/icon4.png" alt="Empty Cart Icon" class="empty-cart-icon">';
