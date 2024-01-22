@@ -9,6 +9,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
+document.querySelectorAll('.quantity-change').forEach(button => {
+    button.addEventListener('click', function() {
+        let quantityInput = this.parentNode.querySelector('.quantity-input');
+        let currentQuantity = parseInt(quantityInput.value);
+        if (this.getAttribute('data-change') === 'plus') {
+            quantityInput.value = currentQuantity + 1;
+        } else if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+        }
+        // Trigger form submission for update
+        this.parentNode.parentNode.submit();
+    });
+});
+
 function showNotification(message) {
     // Create the notification element
     var notification = document.createElement('div');

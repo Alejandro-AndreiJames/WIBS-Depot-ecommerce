@@ -147,7 +147,7 @@
             <a href="cart.php">My Cart<?php if ($hasCartItems) echo '<span class="red-dot"></span>'; ?></a>
         </div>
         <div class="profile-name">
-            <strong><a href="profile.php" style="color: inherit; text-decoration: none;"><?php echo $username ?></a></strong>
+            <strong><?php echo $username?></strong>
             |
             <form action="logout.php" method="post">
                 <input type="submit" value="Logout">
@@ -168,26 +168,28 @@
                     $total_amount = 0;
                     // Fetch cart items from the database for the current user
                     $sql = "SELECT * FROM cart WHERE user_id = '$userid'";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        // Display cart items
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<form class="item" action="" method="post">';
-                            echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
-                            echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
-                            echo '<div class="item-info">';
-                            echo '<p>Item Name: ' . $row['item_name'] . '</p>';
-                            // Quantity input
-                            echo '<p>Quantity: <input type="number" name="quantity" value="' . $row['quantity'] . '" min="1"></p>';
-                            echo '<p>Price: ₱' . $row['item_price'] . '</p>';
-                            echo '</div>';
-                            echo '<div class="remove-button">';
-                            echo '<button type="submit" name="update_quantity">Update</button>';
-                            echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
-                            echo '</div>';
-                            echo '</form>'; 
-                            $total_amount += $row['item_price'] * $row['quantity'];
-                        }                        
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    // Display cart items
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<form class="item" action="" method="post">';
+                        echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
+                        echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
+                        echo '<div class="item-info">';
+                        echo '<p>Item Name: ' . $row['item_name'] . '</p>';
+                        // Quantity input with "+" and "-" buttons
+                        echo '<p>Quantity: <button type="button" class="quantity-change" data-change="minus">-</button>';
+                        echo '<input type="number" name="quantity" value="' . $row['quantity'] . '" min="1" class="quantity-input">';
+                        echo '<button type="button" class="quantity-change" data-change="plus">+</button></p>';
+                        echo '<p>Price: ₱' . $row['item_price'] . '</p>';
+                        echo '</div>';
+                        echo '<div class="remove-button">';
+                        echo '<button type="submit" name="update_quantity">Update</button>';
+                        echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
+                        echo '</div>';
+                        echo '</form>'; 
+                        $total_amount += $row['item_price'] * $row['quantity'];
+                    }                        
                     } else {
                         echo '<div class= "empty">';
                         echo '<img src="../ASSETS/icon4.png" alt="Empty Cart Icon" class="empty-cart-icon">';
