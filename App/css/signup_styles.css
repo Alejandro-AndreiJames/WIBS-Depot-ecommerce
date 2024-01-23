@@ -114,6 +114,17 @@ footer img {
   max-height: 205px;
 }
 
+.error-container {
+  margin-top: 20px; /* Give some space above the error container */
+  margin-bottom: 20px; /* Give some space below the error container */
+}
+
+.error-msg {
+  color: red;
+  font-size: 16px;
+  display: block; /* Ensure the message takes up the full width available */
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
