@@ -56,17 +56,20 @@ if (isset($_POST['submit'])) {
       <img src="../ASSETS/Man presenting business idea on laptop.png" alt="">
     </div>
 
-    <?php
-    if (!empty($error)) {
-      foreach ($error as $err) {
-        echo '<span class="error-msg">' . $err . '</span>';
-      }
-    }
-    ?>
-
     <div class="content-form">
       <form id="signup-form" method="post">
         <h1>Sign Up</h1>
+
+        <!-- Error Message Container -->
+        <div class="error-container">
+          <?php
+            if (!empty($error)) {
+            foreach ($error as $err) {
+            echo '<span class="error-msg">' . $err . '</span>';
+            }
+            }
+          ?>
+        </div>
 
         <div class="form-row">
           <div class="form-group">
