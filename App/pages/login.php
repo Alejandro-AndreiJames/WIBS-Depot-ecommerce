@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                 <h1>Sign In</h1>
                 <?php
                 if (!empty($errors)) {
-                    echo '<div class="error-msg">' . implode('<br>', $errors) . '</div>';
+                    echo '<div class="error-msg error-text">' . implode('<br>', $errors) . '</div>';
                 }
                 ?>
                 <div class="form-group">

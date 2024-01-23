@@ -134,6 +134,11 @@ footer {
   height: auto;
 }
 
+.error-text {
+  color: red;
+  padding-bottom: 5px; ;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .content {
