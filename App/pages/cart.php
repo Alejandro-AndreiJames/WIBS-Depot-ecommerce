@@ -25,21 +25,23 @@
             $username = $_SESSION['user_name'];
 
             //update quantity
-            if (isset($_POST['update_quantity']) && isset($_POST['cart_id']) && isset($_POST['quantity'])) {
+            if (isset($_POST['update_quantity'])) {
                 $cart_id = $_POST['cart_id'];
                 $new_quantity = $_POST['quantity'];
             
-                // SQL to update item quantity
                 $sql_update = "UPDATE cart SET quantity = ? WHERE cart_id = ?";
                 $stmt = $conn->prepare($sql_update);
                 $stmt->bind_param("ii", $new_quantity, $cart_id);
                 if ($stmt->execute()) {
-                    echo "Quantity updated successfully";
+                    // Redirect back to refresh the page
+                    header("Location: " . $_SERVER['PHP_SELF']);
+                    exit();
                 } else {
                     echo "Error updating record: " . $conn->error;
                 }
                 $stmt->close();
             }
+            
             
 
             // Check if remove item request is set
@@ -173,18 +175,17 @@
                     // Display cart items
                     while ($row = $result->fetch_assoc()) {
                         echo '<form class="item" action="" method="post">';
+                        echo ' <input type="hidden" name="update_quantity" value="1">';
                         echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
                         echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
-                        echo '<div class="item-info">';
+                        echo '<div class="item-info">'; 
                         echo '<p>Item Name: ' . $row['item_name'] . '</p>';
-                        // Quantity input with "+" and "-" buttons
-                        echo '<p>Quantity: <button type="button" class="quantity-change" data-change="minus">-</button>';
+                        echo '<p>Quantity: <button type="button" class="quantity-change" data-change="minus" data-cart-id="' . $row['cart_id'] . '">-</button>';
                         echo '<input type="number" name="quantity" value="' . $row['quantity'] . '" min="1" class="quantity-input">';
-                        echo '<button type="button" class="quantity-change" data-change="plus">+</button></p>';
+                        echo '<button type="button" class="quantity-change" data-change="plus" data-cart-id="' . $row['cart_id'] . '">+</button></p>';
                         echo '<p>Price: ₱' . $row['item_price'] . '</p>';
                         echo '</div>';
                         echo '<div class="remove-button">';
-                        echo '<button type="submit" name="update_quantity">Update</button>';
                         echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
                         echo '</div>';
                         echo '</form>'; 
