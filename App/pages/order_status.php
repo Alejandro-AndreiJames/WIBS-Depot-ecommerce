@@ -113,6 +113,11 @@ error_reporting(E_ALL);
                 } else {
                     echo '<p>No item details available.</p>';
                 }
+
+                if ($numericStatus == 1) {
+                    
+                    echo '<button onclick="deleteOrder(' . $order['po_id'] . ', event)">Delete</button>'; // Pass the event object
+                }
     
                 echo '</div>';
             }

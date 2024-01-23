@@ -1,4 +1,5 @@
 
+
     function openPaymentModal(poId, grandTotal) {
         document.getElementById('modalGrandTotal').textContent = grandTotal;
         var poIdElement = document.getElementById('poIdElement');
@@ -38,6 +39,34 @@
             modal.style.display = "none";
         }
     }
+
+    function deleteOrder(poId, event) {
+        event.stopPropagation(); // Prevent event from bubbling up to parent elements
+    
+        if (!confirm("Are you sure you want to delete this order?")) {
+            return;
+        }
+        fetch('delete_order.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'po_id=' + poId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Order deleted successfully.');
+                location.reload(); // Reload the page to update the list
+            } else {
+                alert('Failed to delete order: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
 
     async function payment(selectedBank) {
         var poId = poIdElement.dataset.poId;
