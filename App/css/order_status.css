@@ -148,14 +148,56 @@ h2{
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: 10% auto; /* Centered horizontally */
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  text-align: center; /* Center content */
 }
+
+.total-price {
+  color: #0B464E;
+  font-size: 1.2em;
+  margin-bottom: 20px; /* Space before buttons */
+}
+
+
+.bank-button {
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bank-button img.bank-logo {
+  margin-right: 10px;
+  width: 50px; /* Adjust based on your actual logo size */
+  height: auto;
+}
+
+.bank-button.vrzn {
+  background-color: #0046ad; /* VRZN brand color */
+  color: #fff;
+}
+
+.bank-button.apex {
+  background-color: #00a650; /* APEX brand color */
+  color: #fff;
+}
+
+.bank-button:hover {
+  filter: brightness(90%);
+}
+
 
 .close {
   color: #aaa;

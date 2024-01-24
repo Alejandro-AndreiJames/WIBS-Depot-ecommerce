@@ -22,13 +22,10 @@ document.querySelectorAll('.quantity-change').forEach(button => {
 });
 
 
-
-
 function updateTotalAmount(newTotal) {
     // Update the total amount on the page
     document.querySelector('.price').textContent = '₱' + newTotal;
 }
-
 
 function showNotification(message) {
     // Create the notification element

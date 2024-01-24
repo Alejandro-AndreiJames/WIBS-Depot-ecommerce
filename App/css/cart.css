@@ -172,41 +172,39 @@ body {
     border-radius: 20px; 
 }
 
-.cart-items .item img {
-    width: auto;
-    max-width: 100px;
-    max-height: 100px;
-    margin-right: 20px;
-    border-radius: 4px; 
-    object-fit: contain;
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px; /* Add padding inside each cart item */
 }
 
-.cart-items .item .item-info {
-    flex-grow: 1; 
-    text-align: center; 
+.cart-item-image img {
+    max-width: 200px; /* Increase the max-width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px;
+    margin-right: 20px; /* Right margin to the image */
 }
 
-.cart-items .item .item-info p {
-    margin: 5px 0;
-    font-size: 16px; 
-    color: #333; 
+.item-info {
+    flex-grow: 1;
+    padding-right: 40px; /* Padding to the right of item info */
+    padding-left: 35px;
+    font-size: 22px; /* Increase the font size for readability */
 }
 
-.cart-items .item .remove-button button {
-    background-color: #ad1919;  
-    color: #ffffff;
-    border: 2px solid #ad1919;
-    padding: 10px 20px;
+.cart-item-remove {
+    margin-left: 50px; /* Add left margin to separate from the quantity selector */
+}
+
+.cart-item-remove button {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 10px 40px; /* Increase padding for larger button */
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    margin-left: 20px; 
-    transition: background-color 0.3s, color 0.3s;;
-}
-
-.cart-items .item .remove-button button:hover {
-    background-color: #c95353; 
-    color: white;
+    font-size: 16px; /* Optional: Increase font size for better visibility */
 }
 
 .buttons {
@@ -219,30 +217,37 @@ body {
     border-radius: 30px;
 }
 
-.quantity-selector {
+.quantity {
     display: flex;
-    border: 1px solid #ccc;
-    width: fit-content;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px; /* Add right margin to the quantity selector */
 }
-  
-.quantity-selector button {
+
+.quantity button {
     border: none;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 35px; /* Reduce width for smaller buttons */
+    height: 35px; /* Reduce height for smaller buttons */
+    line-height: 35px; /* Adjust line height for smaller buttons */
     text-align: center;
     cursor: pointer;
+    margin: 0 5px; /* Margin for spacing */
 }
   
-.quantity-selector button:active {
+.quantity button:active {
     background-color: #f0f0f0;
 }
   
-.quantity-selector .quantity-input {
-    width: 30px;
-    height: 30px;
+.quantity .quantity-input {
+    width: 130px; /* Width of the quantity input */
+    height: 30px; /* Height of the quantity input */
     text-align: center;
     line-height: 30px;
+    font-size: 18px; /* Adjust the font size if needed */
+}
+
+.quantity-change {
+    font-size: 25px;
 }
 
 .cart-items .item .item-info .buttons .remove-button button {

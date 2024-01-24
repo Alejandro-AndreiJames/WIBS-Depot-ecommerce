@@ -1,6 +1,4 @@
-
-
-    function openPaymentModal(poId, grandTotal) {
+function openPaymentModal(poId, grandTotal) {
         document.getElementById('modalGrandTotal').textContent = grandTotal;
         var poIdElement = document.getElementById('poIdElement');
         poIdElement.dataset.poId = poId;
