@@ -202,9 +202,13 @@ body {
     color: white;
     border: none;
     padding: 10px 40px; /* Increase padding for larger button */
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px; /* Optional: Increase font size for better visibility */
+}
+
+.cart-item-remove button:hover {
+    background-color: #db5748;
 }
 
 .buttons {
@@ -343,4 +347,14 @@ body {
 
 .cart-items::-webkit-scrollbar-thumb:hover {
     background: #90a4ae;
+}
+
+.quantity-change {
+    background-color: #b8b5b5;
+    border-radius: 8px;
+    color: #000000;
+}
+
+.quantity-change:hover {
+    background-color: #979494;
 }
