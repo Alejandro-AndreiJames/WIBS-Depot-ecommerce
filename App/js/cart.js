@@ -13,15 +13,22 @@ document.querySelectorAll('.quantity-change').forEach(button => {
     button.addEventListener('click', function() {
         let quantityInput = this.parentNode.querySelector('.quantity-input');
         let currentQuantity = parseInt(quantityInput.value);
-        if (this.getAttribute('data-change') === 'plus') {
-            quantityInput.value = currentQuantity + 1;
-        } else if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
-        }
-        // Trigger form submission for update
-        this.parentNode.parentNode.submit();
+        let newQuantity = this.getAttribute('data-change') === 'plus' ? currentQuantity + 1 : Math.max(currentQuantity - 1, 1);
+        quantityInput.value = newQuantity;
+
+        // Submit the form
+        this.closest('form').submit();
     });
 });
+
+
+
+
+function updateTotalAmount(newTotal) {
+    // Update the total amount on the page
+    document.querySelector('.price').textContent = '₱' + newTotal;
+}
+
 
 function showNotification(message) {
     // Create the notification element
