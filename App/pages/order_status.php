@@ -185,12 +185,19 @@ error_reporting(E_ALL);
                 <a href="order_status.php">Order Status</a>
                 <a href="cart.php">My Cart<?php if (hasItemsInCart($userId)) echo '<span class="red-dot"></span>'; ?></a>
             </div>
+ 
             <div class="profile-name">
-                <strong><a href="profile.php" style="color: inherit; text-decoration: none;"><?php echo $username ?></a></strong>
-                |
-                <form action="logout.php" method="post">
-                <input type="submit" value="Logout">
+                <strong><?php echo $username?></strong>
+            <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">▼</button>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="profile.php">View Profile</a>
+                <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+                <form id="logout-form" action="logout.php" method="post" style="display: none;">
+                    <input type="hidden" name="logout" value="1">
                 </form>
+            </div>
+            </div>
             </div>
     </div>
         <div class="status-text">
