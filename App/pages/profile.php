@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_name'])) {
 }
 
 $userid = $_SESSION['user_id'];
+$username = $_SESSION['user_name'];
 $message = '';
 
 function updateUserDetails($conn, $userid, $firstname, $lastname, $email, $address, $mobile_num, $vrzn_num, $apex_num) {
@@ -37,6 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = updateUserDetails($conn, $userid, $firstname, $lastname, $email, $address, $mobile_num, $vrzn_num, $apex_num);
 }
 
+// Check if the user's profile information has been updated recently
+$profileUpdated = isset($_SESSION['profile_updated']) && $_SESSION['profile_updated'];
+
+// Unset the session variable to prevent showing the message again on refresh
+unset($_SESSION['profile_updated']);
+
 // Fetch user details from the database
 $query = "SELECT firstname, lastname, email, address, mobile_num, vrzn_num, apex_num FROM customer WHERE customer_id = ?";
 if ($stmt = $conn->prepare($query)) {
@@ -46,6 +53,23 @@ if ($stmt = $conn->prepare($query)) {
     $stmt->fetch();
     $stmt->close();
 }
+
+$cartQuery = "SELECT COUNT(*) FROM cart WHERE user_id = ?";
+$stmt = $conn->prepare($cartQuery);
+$stmt->bind_param("i", $userid);
+$stmt->execute();
+$stmt->store_result();
+$stmt->bind_result($cartCount);
+$stmt->fetch();
+$hasCartItems = $cartCount > 0;
+$stmt->close();
+
+
+if ($message === "Information updated successfully!") {
+    $_SESSION['profile_updated'] = true;
+    header("Location: profile.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,49 +78,56 @@ if ($stmt = $conn->prepare($query)) {
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
 </head>
 <body>
-    <h1>User Profile</h1>
-    <?php if ($message) echo "<p>$message</p>"; ?>
+    <div class="navbar">
+            <div class="logo">
+                <img src="../ASSETS/wibsdepot2.png" alt="logo">
+            </div>
 
-    <div id="viewDiv">
-        <p>Name: <?php echo htmlspecialchars($firstname) . ' ' . htmlspecialchars($lastname); ?></p>
-        <p>Email: <?php echo htmlspecialchars($email); ?></p>
-        <p>Address: <?php echo htmlspecialchars($address); ?></p>
-        <p>Mobile Number: <?php echo htmlspecialchars($mobile_num); ?></p>
-        <p>Vrzn Account Number: <?php echo htmlspecialchars($vrzn_num); ?></p>
-        <p>Apex Account Number: <?php echo htmlspecialchars($apex_num); ?></p>
+            <div class="nav-links">
+                <a href="homepage.php">Home</a>
+                <a href="order_status.php">Order Status</a>
+                <a href="cart.php">My Cart<?php if ($hasCartItems) echo '<span class="red-dot"></span>'; ?></a>
+            </div>
 
-        <button onclick="toggleEditForm()">Edit Profile</button>
+            <div class="profile-name">
+                <strong><?php echo $username?></strong>
+                |
+                <form action="logout.php" method="post">
+                    <input type="submit" value="Logout">
+                </form>
+            </div>
     </div>
 
-    <form id="editForm" method="POST" action="profile.php" style="display:none;">
-        <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="firstname" value="<?php echo htmlspecialchars($firstname); ?>" required>
+    <div class="profile-container">
+        <h1>My Profile</h1>
 
-        <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="lastname" value="<?php echo htmlspecialchars($lastname); ?>" required>
+        <img src="../ASSETS/prof-icon.png" alt="Profile Picture" class="profile-pic" />
+        
+        <?php if ($profileUpdated): ?>
+        <p class="profile-message">Information updated successfully!</p>
+    <?php endif; ?>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+        <h2 class="username"><?php echo htmlspecialchars($firstname) . ' ' . htmlspecialchars($lastname); ?></h2>
+        
+        <div class="user-details">
+            <p>Email: <?php echo htmlspecialchars($email); ?></p>
+            <p>Home Address: <?php echo htmlspecialchars($address); ?></p>
+            <p>Mobile Number: <?php echo htmlspecialchars($mobile_num); ?></p>
+            <p>VRZN Account Number: <?php echo htmlspecialchars($vrzn_num); ?></p>
+            <p>APEX Account Number: <?php echo htmlspecialchars($apex_num); ?></p>
+        </div>
+        
+        <a href="edit_profile.php" class="edit-profile-btn">Edit Profile</a>
+    </div>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>">
+    <footer class="site-footer">
+        <p>&copy; 2023 WIBS. All rights reserved.</p>
+    </footer>
 
-        <label for="mobile_num">Mobile Number:</label>
-        <input type="text" id="mobile_num" name="mobile_num" value="<?php echo htmlspecialchars($mobile_num); ?>">
-
-        <label for="vrzn_num">VRZN Number:</label>
-        <input type="text" id="vrzn_num" name="vrzn_num" value="<?php echo htmlspecialchars($vrzn_num); ?>">
-
-        <label for="apex_num">APEX Number:</label>
-        <input type="text" id="apex_num" name="apex_num" value="<?php echo htmlspecialchars($apex_num); ?>">
-
-        <input type="submit" value="Update Profile">
-        <button type="button" onclick="toggleEditForm()">Cancel</button>
-    </form>
-
-    <a href="homepage.php">Back to Home</a>
+    <script src="../js/profile.js"></script>
 </body>
-<script src="../js/profile.js"></script>
 </html>

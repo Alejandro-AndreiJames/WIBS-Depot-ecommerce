@@ -1,0 +1,246 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url('../ASSETS/bg4.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 0;
+}
+
+.navbar {
+    background-color: #0B464E;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px; 
+    border-radius: 50%;
+    object-fit: cover; 
+}
+
+.profile-name {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.profile-name form {
+    display: inline;
+}
+
+.profile-name input[type="submit"] {
+    background-color: #f4433600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.profile-name input[type="submit"]:hover {
+    color: red;
+}
+
+.logo {
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.logo img {
+    width: 160px; 
+    height: auto; 
+}
+
+.profile-name, .nav-links a {
+    color: white;
+    font-size: 16px;
+}
+
+.nav-links {
+    display: flex;
+}
+
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    padding: 8px 15px;
+}
+
+.nav-links a:hover, .pagination a:hover {
+    background-color: #255763;
+    border-radius: 4px;
+}
+
+.site-footer {
+    background-color: #0B464E;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 16px;
+}
+
+.profile-container {
+    text-align: center;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.profile-container h1 {
+    color: #333;
+    font-size: 42px;
+    margin-top: 0;
+    margin-bottom: 0.5em; 
+}
+
+
+.profile-container .profile-message {
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.profile-container .username {
+    font-size: 46px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0B464E;
+}
+
+.profile-container .user-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.edit-profile-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: #0B464E;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.edit-profile-btn:hover {
+    background-color: #255763;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+    }
+
+    .edit-profile-btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+
+.edit-profile-container {
+    background: #ffffff; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 12px; 
+    max-width: 600px;
+    margin-top: 0;
+    margin: 50px auto;
+    padding: 40px; 
+    font-family: 'Poppins', sans-serif; 
+}
+
+.form-row {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row label {
+    font-size: 16px; 
+    color: #333;
+    margin-bottom: 8px; 
+    font-weight: 500; 
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"] { 
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px; 
+    font-size: 14px; 
+    transition: border-color 0.3s; 
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="email"]:focus,
+.form-row input[type="password"]:focus {
+    border-color: #0B464E; 
+    outline: none;
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.submit-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.submit-btn {
+    background-color: #0B464E;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #9e4242;
+    color: #ffffff;
+}
+
+.submit-btn:hover {
+    background-color: #255763;
+}
+
+.cancel-btn:hover {
+    background-color: #c26f6f;
+}
+
+@media (max-width: 768px) {
+    .edit-profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+.profile-container, .edit-profile-container {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+    

@@ -1,0 +1,261 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url('../ASSETS/bg4.png'); /* Adjust the path to point to your image file */
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image in the viewport */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    padding-top: 0;
+}
+
+.navbar {
+    background-color: #0B464E;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
+}
+
+.profile-pic {
+    width: 250px; /* Smaller width */
+    height: 250px; /* Smaller height to maintain aspect ratio */
+    border-radius: 50%; /* Keeps the picture circular */
+    object-fit: cover; /* Ensures the image covers the area */
+    /* Other styles remain the same */
+}
+
+.profile-name {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.profile-name form {
+    display: inline;
+}
+
+.profile-name input[type="submit"] {
+    background-color: #f4433600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.profile-name input[type="submit"]:hover {
+    color: red;
+}
+
+.logo {
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.logo img {
+    width: 160px; /* or any size you prefer */
+    height: auto; /* this will maintain the aspect ratio */
+}
+
+.profile-name, .nav-links a {
+    color: white;
+    font-size: 16px;
+}
+
+.nav-links {
+    display: flex;
+}
+
+.nav-links a {
+    position: relative;
+    text-decoration: none;
+    padding: 8px 15px;
+}
+
+.nav-links a:hover, .pagination a:hover {
+    background-color: #255763;
+    border-radius: 4px;
+}
+
+.site-footer {
+    background-color: #0B464E;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 16px;
+}
+
+.profile-container {
+    text-align: center;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.profile-container h1 {
+    color: #333;
+    font-size: 52px;
+    margin-top: 50px; /* Removes top margin, adjust as needed */
+    margin-bottom: 0.5em; /* Provides a little space below the header */
+}
+
+.profile-container h2 {
+    color: #333;
+    font-size: 52px;
+    margin-bottom: 20px; /* Provides a little space below the header */
+}
+
+
+.profile-container .profile-message {
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.profile-container .username {
+    font-size: 46px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0B464E;
+}
+
+.profile-container .user-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.edit-profile-btn {
+    display: inline-block; /* Center button */
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-bottom: 92px;
+    background-color: #0B464E;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.edit-profile-btn:hover {
+    background-color: #255763;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+    }
+
+    .edit-profile-btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+
+/*_______________________________*/
+/* Styling for the form container */
+.edit-profile-container {
+    background: #ffffff; /* Light background for the form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 12px; /* Rounded corners for the container */
+    max-width: 600px;
+    margin: 50px auto; /* More vertical space and centered on the page */
+    padding: 40px; /* More padding for a spacious layout */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+}
+
+/* Styling for form rows */
+.form-row {
+    margin-bottom: 20px; /* More space between form rows */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for labels */
+.form-row label {
+    font-size: 16px; /* Larger font size for labels */
+    color: #333;
+    margin-bottom: 8px; /* Space between label and input */
+    font-weight: 500; /* Slightly bolder font for labels */
+}
+
+/* Styling for input fields */
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"] { /* Added password in case you have it */
+    width: 100%; /* Full width */
+    padding: 15px; /* More padding for a larger click area */
+    border: 1px solid #ccc;
+    border-radius: 6px; /* Slightly rounded corners for inputs */
+    font-size: 14px; /* Legible font size */
+    transition: border-color 0.3s; /* Smooth transition for interactions */
+}
+
+/* Interactions */
+.form-row input[type="text"]:focus,
+.form-row input[type="email"]:focus,
+.form-row input[type="password"]:focus {
+    border-color: #0B464E; /* Highlight color when input is focused */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Styling for action buttons */
+.form-actions {
+    text-align: right; /* Align buttons to the right */
+    margin-top: 30px; /* More space above the buttons */
+}
+
+.submit-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.submit-btn {
+    background-color: #0B464E;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #9e4242;
+    color: #ffffff;
+}
+
+.submit-btn:hover {
+    background-color: #255763;
+}
+
+.cancel-btn:hover {
+    background-color: #c26f6f;
+}
+
+@media (max-width: 768px) {
+    .edit-profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+.profile-container, .edit-profile-container {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+    

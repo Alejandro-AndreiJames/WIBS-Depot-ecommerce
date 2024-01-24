@@ -122,12 +122,12 @@ if (isset($_POST['submit'])) {
         <div class="form-row">
           <div class="form-group">
             <label for="vrzn_num">VRZN Bank</label>
-            <input type="number" id="vrzn_num" name="vrzn_num" placeholder="Input VRZN Bank Account Number" />
+            <input type="number" id="vrzn_num" name="vrzn_num" placeholder="Input VRZN Bank Account Number (Optional)" />
           </div>
 
           <div class="form-group">
             <label for="apex_num">APEX Bank</label>
-            <input type="number" id="apex_num" name="apex_num" placeholder="Input VRZN Bank Account Number" />
+            <input type="number" id="apex_num" name="apex_num" placeholder="Input VRZN Bank Account Number (Optional)" />
           </div>
         </div>
 
