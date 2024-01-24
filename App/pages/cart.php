@@ -25,10 +25,10 @@
             $username = $_SESSION['user_name'];
 
             //update quantity
-            if (isset($_POST['update_quantity'])) {
+            if (isset($_POST['update_quantity']) && isset($_POST['cart_id'])) {
                 $cart_id = $_POST['cart_id'];
                 $new_quantity = $_POST['quantity'];
-            
+
                 $sql_update = "UPDATE cart SET quantity = ? WHERE cart_id = ?";
                 $stmt = $conn->prepare($sql_update);
                 $stmt->bind_param("ii", $new_quantity, $cart_id);
@@ -41,22 +41,23 @@
                 }
                 $stmt->close();
             }
-            
-            
 
             // Check if remove item request is set
             $itemRemoved = false; // Variable to track if an item was removed
-                if (isset($_POST['remove_item']) && isset($_POST['cart_id'])) {
+            if (isset($_POST['remove_item']) && isset($_POST['cart_id'])) {
                 $cart_id = $_POST['cart_id'];
-        
-             // SQL to remove item from cart
-            $sql_remove = "DELETE FROM cart WHERE cart_id = '$cart_id'";
-        
-                if ($conn->query($sql_remove) === TRUE) {
-                $itemRemoved = true; // Set to true if item is removed successfully
+                // SQL to remove item from cart
+                $sql_remove = "DELETE FROM cart WHERE cart_id = ?";
+                $stmt = $conn->prepare($sql_remove);
+                $stmt->bind_param("i", $cart_id);
+                if ($stmt->execute()) {
+                    $itemRemoved = true; // Set to true if item is removed successfully
                 } else {
-                echo "Error: " . $conn->error;
+                    echo "Error: " . $conn->error;
                 }
+                $stmt->close();
+                header("Location: " . $_SERVER['PHP_SELF']); // Refresh page to update cart
+                exit;
             }
 
             // Process the place order request
@@ -170,27 +171,36 @@
                     $total_amount = 0;
                     // Fetch cart items from the database for the current user
                     $sql = "SELECT * FROM cart WHERE user_id = '$userid'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    // Display cart items
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<form class="item" action="" method="post">';
-                        echo ' <input type="hidden" name="update_quantity" value="1">';
-                        echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
-                        echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
-                        echo '<div class="item-info">'; 
-                        echo '<p>Item Name: ' . $row['item_name'] . '</p>';
-                        echo '<p>Quantity: <button type="button" class="quantity-change" data-change="minus" data-cart-id="' . $row['cart_id'] . '">-</button>';
-                        echo '<input type="number" name="quantity" value="' . $row['quantity'] . '" min="1" class="quantity-input">';
-                        echo '<button type="button" class="quantity-change" data-change="plus" data-cart-id="' . $row['cart_id'] . '">+</button></p>';
-                        echo '<p>Price: ₱' . $row['item_price'] . '</p>';
-                        echo '</div>';
-                        echo '<div class="remove-button">';
-                        echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
-                        echo '</div>';
-                        echo '</form>'; 
-                        $total_amount += $row['item_price'] * $row['quantity'];
-                    }                        
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                         // Display cart items
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<form class="item" action="" method="post">';
+                            echo '<input type="hidden" name="update_quantity" value="1">';
+                            echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
+                            echo '<div class="cart-item">';
+                            echo '<div class="cart-item-image">';
+                            echo '<img src="' . $row['item_image'] . '" alt="Item Image">';
+                            echo '</div>';
+                            echo '<div class="item-info">';
+                            echo '<p>' . $row['item_name'] . '</p>';
+                            echo '<p>₱ ' . $row['item_price'] . '</p>';
+                            echo '</div>';
+                            echo '<div class="quantity">';
+                            echo '<button type="button" class="quantity-change" data-change="minus" data-cart-id="' . $row['cart_id'] . '">-</button>';
+                            echo '<input type="number" name="quantity" value="' . $row['quantity'] . '" min="1" class="quantity-input">';
+                            echo '<button type="button" class="quantity-change" data-change="plus" data-cart-id="' . $row['cart_id'] . '">+</button></p>';
+                            echo '</div>';
+                            echo '</form>';
+                            echo '<form class="item-remove-form" action="" method="post">';
+                            echo '<div class="cart-item-remove">';
+                            echo '<input type="hidden" name="cart_id" value="' . $row['cart_id'] . '">';
+                            echo '<button type="submit" name="remove_item" onclick="return confirmRemove()">Remove</button>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '</form>';
+                            $total_amount += $row['item_price'] * $row['quantity'];
+                        }
                     } else {
                         echo '<div class= "empty">';
                         echo '<img src="../ASSETS/icon4.png" alt="Empty Cart Icon" class="empty-cart-icon">';

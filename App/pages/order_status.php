@@ -106,17 +106,17 @@ error_reporting(E_ALL);
                         echo '<p>' . htmlspecialchars($itemName) . '</p>';
                         echo '<p>Quantity: ' . htmlspecialchars($item['qty']) . '</p>';
                         echo '<p>Price: ' . htmlspecialchars($item['price']) . '</p>';
-                        echo '<p>Total Price: ' . htmlspecialchars($item['total_price']) . '</p>';
+
                         echo '--------------------------------------------------------------------';
                     }
+                    echo '<p class="total-amount">Total Amount: ' . htmlspecialchars($order['grand_total']) . '</p>';
                     echo '</div>';
                 } else {
                     echo '<p>No item details available.</p>';
                 }
 
                 if ($numericStatus == 1) {
-                    
-                    echo '<button onclick="deleteOrder(' . $order['po_id'] . ', event)">Delete</button>'; // Pass the event object
+                    echo '<button onclick="deleteOrder(' . $order['po_id'] . ', event)">Cancel</button>'; 
                 }
     
                 echo '</div>';
@@ -221,23 +221,30 @@ error_reporting(E_ALL);
         </div>
 
         <div id="paymentModal" class="modal">
-    <div class="modal-content">
-        <div id="poIdElement" style="display:none;"></div>
-        <span class="close" onclick="closePaymentModal()">&times;</span>
-        <h2 class="pay-modal">To Pay</h2>
-        <p id="modalGrandTotal"></p>
-        <button id="vrznButton" onclick="payment('vrzn')">VRZN</button>
-        <button id="apexButton" onclick="payment('apex')">APEX</button>
-        <div style="display: none;">
-        <p id="modalBankCode"></p>
-        <p id="modalRecipientNumber"></p>
-        <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
-        <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
+            <div class="modal-content">
+                <div id="poIdElement" style="display:none;"></div>
+                <span class="close" onclick="closePaymentModal()">&times;</span>
+                <h2 class="pay-modal">To Pay</h2>
+                <p class="item-details"><p>
+                <p class="total-price">Total Price:</p>
+                <p id="modalGrandTotal"></p>
+                <button class="bank-button vrzn">
+                    <img src="../ASSETS/vrzn_logo.png" alt="VRZN Logo" class="bank-logo" id="vrznButton" onclick="payment('vrzn')" >
+                    VRZN
+                </button>
+                <button class="bank-button apex">
+                    <img src="../ASSETS/apex_logo.png" alt="APEX Logo" class="bank-logo" id="apexButton" onclick="payment('apex')" >
+                    APEX
+                </button>
+                <div style="display: none;">
+                    <p id="modalBankCode"></p>
+                    <p id="modalRecipientNumber"></p>
+                    <div id="vrznAccountNo"><?php echo htmlspecialchars($vrzn_num); ?></div>
+                    <div id="apexAccountNo"><?php echo htmlspecialchars($apex_num); ?></div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     
-        
     <footer class="site-footer">
             <p>&copy; 2023 WIBS. All rights reserved.</p>
     </footer>
