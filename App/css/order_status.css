@@ -126,8 +126,19 @@ h2{
   box-sizing: border-box; 
 }
 
-.order:hover {
-  background-color: #f5f5f5e7;
+.order button {
+  background-color: #c0392b; 
+  color: white; 
+  border: none; 
+  padding: 5px 15px; 
+  margin-top: 10px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  transition: background-color 0.3s; 
+}
+
+.order button:hover {
+  background-color: darkred;
 }
 
 .modal {
