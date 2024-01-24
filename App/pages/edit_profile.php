@@ -82,10 +82,16 @@ $stmt->close();
 
             <div class="profile-name">
                 <strong><?php echo $username?></strong>
-                |
-                <form action="logout.php" method="post">
-                    <input type="submit" value="Logout">
+            <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">▼</button>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="profile.php">View Profile</a>
+                <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+                <form id="logout-form" action="logout.php" method="post" style="display: none;">
+                    <input type="hidden" name="logout" value="1">
                 </form>
+            </div>
+            </div>
             </div>
     </div>
 
