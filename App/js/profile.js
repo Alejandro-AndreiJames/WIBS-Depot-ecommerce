@@ -80,3 +80,12 @@ document.addEventListener("DOMContentLoaded", function() {
 function cancelEdit() {
     window.location.href = "profile.php";
 }
+
+function updateCartIconWithRedDot() {
+    const cartLink = document.querySelector('.nav-links a[href="cart.php"]');
+    if (!cartLink.querySelector('.red-dot')) {
+        const redDot = document.createElement('span');
+        redDot.className = 'red-dot';
+        cartLink.appendChild(redDot);
+    }
+}
