@@ -15,9 +15,9 @@ body {
 }
 
 .no-orders img.status-icon {
-  max-width: 100px; /* Adjust size as needed */
-  margin: 0 auto; /* Center the image */
-  display: block; /* Makes the image a block element to allow for margin auto to work */
+  max-width: 100px; 
+  margin: 0 auto; 
+  display: block;
 }
 
 .navbar {
@@ -60,8 +60,8 @@ body {
 }
 
 .logo img {
-  width: 160px; /* or any size you prefer */
-  height: auto; /* this will maintain the aspect ratio */
+  width: 160px;
+  height: auto;
 }
 
 .profile-name, .nav-links a {
@@ -107,7 +107,7 @@ a:hover {
   box-sizing: border-box; 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-y: auto;
   height: 600px;
 }
 
@@ -164,20 +164,20 @@ h2{
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto; /* Centered horizontally */
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  text-align: center; /* Center content */
+  text-align: center;
 }
 
 .total-price {
   color: #0B464E;
   font-size: 1.2em;
-  margin-bottom: 20px; /* Space before buttons */
+  margin-bottom: 20px;
 }
 
 
@@ -196,22 +196,23 @@ h2{
 
 .bank-button img.bank-logo {
   margin-right: 10px;
-  width: 50px; /* Adjust based on your actual logo size */
+  width: 50px;
   height: auto;
 }
 
 .bank-button.vrzn {
-  background-color: #0046ad; /* VRZN brand color */
+  background-color: #0046ad; 
   color: #fff;
 }
 
 .bank-button.apex {
-  background-color: #00a650; /* APEX brand color */
+  background-color: #00a650; 
   color: #fff;
 }
 
 .bank-button:hover {
   filter: brightness(90%);
+  cursor: pointer;
 }
 
 
@@ -270,12 +271,10 @@ h2{
   background: #90a4ae; 
 }
 
-/* Positioning and styling for the profile name and dropdown */
 .profile-name {
   position: relative;
   display: inline-block;
-  cursor: pointer;
-  color: white; /* Assuming you want the username to be white */
+  color: white; 
 }
 
 .dropbtn {
@@ -295,7 +294,7 @@ h2{
 .dropdown-content {
   display: none;
   position: absolute;
-  right: 0; /* Align to the right */
+  right: 0;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
