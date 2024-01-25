@@ -44,8 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
         <div class="payment-details">
             <strong><p>Pay to: <span id="recipientName">FusionDesign</span></p></strong>
             <strong><p>₱<span id="totalAmount"><?php echo htmlspecialchars($total_amount); ?></span></p></strong>
+            <p>Select Bank:</p>
+            <div style="display: none;">
             <p>Bank Code: <span id="bankCode">[Bank Code]</span></p>
             <p>Recipient Number: <span id="recipientNumber">[Recipient Number]</span></p>
+            </div>
         </div>
         <div class="bank-selection">
         <button type="submit" id="vrznButton" name="selected_bank" value="vrzn" class="bank-btn">
