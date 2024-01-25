@@ -126,6 +126,11 @@ error_reporting(E_ALL);
         if (isset($_GET['po_id']) && $_GET['po_id']) {
                 $string = $_GET['po_id'];
                 echo $string;
+
+                $string_explode = explode('?', $string);
+                $po_id1 = $string_explode[0];
+                
+                echo $po_id1;
                 // Initialize $po_id to null
                 $po_id = null;
 
