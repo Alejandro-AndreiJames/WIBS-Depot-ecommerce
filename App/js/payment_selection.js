@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let recipientAccountNo = sellerDetails.seller_account_number;
         let bankCode = sellerDetails.seller_bank_code;
         let baseRedirectUrl = 'https://wibs.tech/App/pages/order_status.php';
-        let redirectUrl ='https://wibs.tech/App/pages/order_status.php?';
+        let redirectUrl ='https://wibs.tech/App/pages/order_status.php';
 
         let selectedBank = event.submitter.value; // This line is changed
 
