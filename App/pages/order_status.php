@@ -123,8 +123,9 @@ error_reporting(E_ALL);
             }
         }
 
-        if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
-
+        if (isset($_GET['po_id']) && $_GET['po_id']) {
+                $string = $_GET['po_id'];
+                echo $string;
                 // Initialize $po_id to null
                 $po_id = null;
 
