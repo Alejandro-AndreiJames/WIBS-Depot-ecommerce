@@ -74,8 +74,8 @@ function openPaymentModal(poId, grandTotal) {
         var apexAccountNo = document.getElementById('apexAccountNo').innerText;
         var recipientAccountNo = document.getElementById('modalRecipientNumber').textContent;
         var bankCode = document.getElementById('modalBankCode').textContent;
-        let baseRedirectUrl = `https://wibs.tech/App/pages/order_status.php?po_id=${poId}&`.replace(/\?/g, '&');
-        let redirectUrl =`https://wibs.tech/App/pages/order_status.php?po_id=${poId}&`.replace(/\?/g, '&');
+        let baseRedirectUrl = `https://wibs.tech/App/pages/order_status.php?po_id=${poId}`;
+        let redirectUrl =`https://wibs.tech/App/pages/order_status.php?po_id=${poId}`;
     
         if (selectedBank === 'vrzn') {
             let sourceAccountNo = vrznAccountNo;
