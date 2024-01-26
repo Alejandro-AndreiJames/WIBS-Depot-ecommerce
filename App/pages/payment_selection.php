@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_bank'])) {
 <head>
     <meta charset="UTF-8">
     <title>Payment Selection</title>
+    <link rel="icon" type="image/png" href="../ASSETS/wd.png" />
     <link rel="stylesheet" href="../css/payment_selection.css">
 </head>
 <body>

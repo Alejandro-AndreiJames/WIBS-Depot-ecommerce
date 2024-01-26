@@ -38,6 +38,7 @@ $stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="icon" type="image/png" href="../ASSETS/wd.png" />
     <link rel="stylesheet" href="../css/homepage_styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">

@@ -76,6 +76,7 @@ $stmt->close();
     <link rel="stylesheet" href="../css/edit_profile.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../ASSETS/wd.png" />
 </head>
 <body>
     <div class="navbar">

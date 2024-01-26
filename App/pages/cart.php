@@ -160,6 +160,7 @@
             <title>My Cart</title>
             <link rel="stylesheet" href="../css/cart.css">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+            <link rel="icon" type="image/png" href="../ASSETS/wd.png" />
         </head>
         <body>
         <div class="overlay"></div>

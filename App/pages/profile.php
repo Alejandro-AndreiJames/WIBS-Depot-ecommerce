@@ -87,6 +87,7 @@ if ($message === "Information updated successfully!") {
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="icon" type="image/png" href="../ASSETS/wd.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
 </head>
