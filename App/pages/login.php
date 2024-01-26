@@ -73,7 +73,12 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Input Password" required />
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" placeholder="Input Password" required />
+                        <div class="toggle-password" onclick="togglePasswordVisibility('password')">
+                            <img id="eye-icon" src="../ASSETS/close.png" alt="Toggle Password Visibility" />
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <button id="submit" type="submit" name="submit">Sign In</button>
@@ -91,6 +96,6 @@ if (isset($_POST['submit'])) {
         </div>
     </footer>
 </body>
-<script src="script.js"></script>
+<script src="../js/login.js"></script>
 
 </html>

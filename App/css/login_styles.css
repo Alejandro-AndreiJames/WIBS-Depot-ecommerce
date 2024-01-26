@@ -74,6 +74,22 @@ body{
   margin-bottom: 5px;
 }
 
+.toggle-password {
+  position: absolute;
+  right: 0px; /* Adjust as necessary */
+  top: 35%; /* Center vertically */
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#eye-icon {
+  position: absolute;
+  width: 20px; /* Set the width of the image */
+  height: 20px; /* Set the height of the image */
+  right: 405px;
+  top: 166px 
+}
+
 .form-group input[type="text"],
 .form-group input[type="password"] {
   width: 100%;
@@ -84,7 +100,7 @@ body{
 }
 
 .form-group button {
-  width: 100%;
+  width: 103%;
   padding: 10px;
   border: none;
   border-radius: 4px;
