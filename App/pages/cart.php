@@ -114,14 +114,31 @@
                 $quantity = $_POST['quantity'];
                 $item_price = $_POST['item_price'];
                 $item_image = $_POST['item_image'];
-
-                // Insert data into the database including user_id and item_id
-                $sql = "INSERT INTO cart (user_id, item_id, item_name, quantity, item_price, item_image) VALUES ('$userid', '$item_id', '$item_name', $quantity, $item_price, '$item_image')";
-
-                if ($conn->query($sql) === TRUE) {
-                    echo "Item added to cart successfully";
+            
+                // Check if the item already exists in the cart
+                $check_sql = "SELECT * FROM cart WHERE user_id = '$userid' AND item_id = '$item_id'";
+                $check_result = $conn->query($check_sql);
+            
+                if ($check_result->num_rows > 0) {
+                    // If item exists, update its quantity
+                    $row = $check_result->fetch_assoc();
+                    $new_quantity = $row['quantity'] + $quantity;
+            
+                    $update_sql = "UPDATE cart SET quantity = $new_quantity WHERE user_id = '$userid' AND item_id = '$item_id'";
+                    if ($conn->query($update_sql) === TRUE) {
+                        echo "Item quantity updated in cart successfully";
+                    } else {
+                        echo "Error updating record: " . $conn->error;
+                    }
                 } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    // If item does not exist, insert it into the cart
+                    $insert_sql = "INSERT INTO cart (user_id, item_id, item_name, quantity, item_price, item_image) VALUES ('$userid', '$item_id', '$item_name', $quantity, $item_price, '$item_image')";
+            
+                    if ($conn->query($insert_sql) === TRUE) {
+                        echo "Item added to cart successfully";
+                    } else {
+                        echo "Error: " . $insert_sql . "<br>" . $conn->error;
+                    }
                 }
             }
 

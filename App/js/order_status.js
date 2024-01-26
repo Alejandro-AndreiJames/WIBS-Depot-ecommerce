@@ -20,7 +20,7 @@
             });
             orderDetailsDiv.appendChild(historyList);
         } else {
-            orderDetailsDiv.innerHTML = 'No delivery history available.';
+            orderDetailsDiv.innerHTML = 'Seller is preparing to ship your order';
         }   
     }
 
