@@ -4,7 +4,12 @@ header("Access-Control-Allow-Origin:*");
 header("Access-Control-Allow-Methods:*");
 header("Access-Control-Allow-Headers:*");
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_name']) && isset($_COOKIE['user_id'])) {
+    $userId = $_COOKIE['user_id'];
+    header("Location: login.php"); // Adjust the path as necessary
+    exit;
+    
+} elseif (!isset($_SESSION['user_name'])) {
     header("Location: login.php");
     exit;
 }

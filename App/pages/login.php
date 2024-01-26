@@ -23,6 +23,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['delivery_address'] = $row['address'];
         $_SESSION['vrzn_num'] = $row['vrzn_num'];
         $_SESSION['apex_num'] = $row['apex_num'];
+        setcookie('user_id', $row['customer_id'], time() + (86400 * 7), "/"); // 86400 = 1 day
         header('location:homepage.php');
         exit();
     } else {

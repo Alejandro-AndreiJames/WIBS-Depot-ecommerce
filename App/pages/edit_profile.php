@@ -2,7 +2,12 @@
 session_start();
 include 'db_conn.php';
 
-if (!isset($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_name']) && isset($_COOKIE['user_id'])) {
+    $userId = $_COOKIE['user_id'];
+    header("Location: login.php"); // Adjust the path as necessary
+    exit;
+    
+} elseif (!isset($_SESSION['user_name'])) {
     header("Location: login.php");
     exit;
 }
