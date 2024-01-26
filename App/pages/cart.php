@@ -2,7 +2,7 @@
             session_set_cookie_params([
                 'lifetime' => 0, // or a specific lifetime
                 'path' => '/', // accessible across the entire domain
-                'domain' => 'wibs.tech', // replace with your domain
+                'domain' => 'www.wibs.tech', // replace with your domain
                 'secure' => true, // set to true if using HTTPS
                 'httponly' => true // helps mitigate XSS attacks
             ]);
