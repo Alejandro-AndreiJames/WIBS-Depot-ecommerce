@@ -3,14 +3,7 @@ ini_set('display_errors', 0); // Turn off error displaying
 error_reporting(E_ALL);
     session_start();
     include 'db_conn.php';
-    // Check if the user is logged in, if not then redirect to login page
-    if (!isset($_COOKIE['user_id'])) {
-        $userId = $_COOKIE['user_id'];
-        header("Location: login.php"); // Adjust the path as necessary
-        exit;
-        
-    }
-    
+  
 
     // Accessing the username and user ID from the session variables
     $username = $_SESSION['user_name'];
