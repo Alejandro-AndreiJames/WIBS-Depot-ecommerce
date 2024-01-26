@@ -56,7 +56,7 @@ function fetchDeliveryStatusFromAPI($deliveryReferenceNumber) {
 
     // Check all entries for a status of 3
     foreach ($responseArray as $entry) {
-        if ($entry['status'] == 3) {
+        if (isset($entry['status']) && $entry['status'] == 3) {
             return 3; // Delivery confirmed
         }
     }
