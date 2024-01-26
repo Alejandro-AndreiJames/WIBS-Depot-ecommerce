@@ -74,20 +74,25 @@ body{
   margin-bottom: 5px;
 }
 
+.form-group {
+  position: relative; 
+  margin-bottom: 15px;
+}
+
 .toggle-password {
   position: absolute;
-  right: 0px; /* Adjust as necessary */
-  top: 35%; /* Center vertically */
+  right: 10px; 
+  top: 50%; 
   transform: translateY(-50%);
   cursor: pointer;
+  z-index: 1; 
 }
 
 #eye-icon {
-  position: absolute;
-  width: 20px; /* Set the width of the image */
-  height: 20px; /* Set the height of the image */
-  right: 405px;
-  top: 166px 
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-top: 15px;
 }
 
 .form-group input[type="text"],
