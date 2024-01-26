@@ -8,12 +8,6 @@
     ]);
     session_start();
     include 'db_conn.php';
-    echo 'Session ID' . session_id();
-
-    ini_set('display_errors', 1);
-    ini_set('log_errors', 1);
-    ini_set('error_log', '../css');
-    error_reporting(E_ALL);
 
     if (!isset($_COOKIE['user_id'])) {
         $userId = $_COOKIE['user_id'];
