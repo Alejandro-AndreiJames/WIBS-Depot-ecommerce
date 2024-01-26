@@ -23,7 +23,7 @@
     $statusMap = [
         1 => 'To Pay',
         2 => 'To Ship',
-        3 => 'Completed'
+        3 => 'To Receive'
     ];
 
     $bankAccountQuery = "SELECT vrzn_num, apex_num FROM customer WHERE customer_id = ?";
