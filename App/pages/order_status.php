@@ -245,7 +245,7 @@
                 <?php displayOrders(2, $userId); ?>
             </div>
             <div class="column" id="completed">
-                <h2>Completed</h2>
+                <h2>To Receive</h2>
                 <?php displayOrders(3, $userId); ?>
             </div>
         </div>
