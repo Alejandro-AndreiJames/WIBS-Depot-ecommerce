@@ -145,6 +145,49 @@ h2{
   background-color: #ddd;
 
 }
+/* Add or update styles for the orderDetails element */
+#orderDetails {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  margin-top: 10px;
+}
+
+/* Style for the delivery history list */
+#orderDetails ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style for each history entry in the list */
+#orderDetails li {
+  margin-bottom: 15px;
+}
+
+/* Style for the date element in each history entry */
+#orderDetails .history-date {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style for the time element in each history entry */
+#orderDetails .history-time {
+  color: #666;
+  margin-right: 10px; /* Add some spacing between time and text */
+}
+
+/* Style for the text element in each history entry */
+#orderDetails .history-text {
+  color: #333;
+}
+
+/* Style for the connector between history entries */
+#orderDetails .connector {
+  display: block;
+  height: 20px; /* Adjust the height as needed */
+  border-left: 2px solid #999;
+  margin-left: 15px; /* Adjust the margin as needed */
+}
 
 .modal {
   display: none;

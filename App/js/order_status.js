@@ -15,15 +15,39 @@
             const historyList = document.createElement('ul');
             historyData.forEach(entry => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<strong>${entry.timestamp}</strong>: ${entry.checkpoint_location} - ${entry.description}`;
+                
+                // Create separate elements for date, time, and text
+                const dateElement = document.createElement('div');
+                dateElement.classList.add('history-date');
+                const dateParts = entry.timestamp.split(' ')[0].split('-');
+                const formattedDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
+                dateElement.innerText = formattedDate; // Format date as MM/DD/YYYY
+                listItem.appendChild(dateElement);
+    
+                const timeElement = document.createElement('div');
+                timeElement.classList.add('history-time');
+                const militaryTime = entry.timestamp.split(' ')[1];
+                const timeParts = militaryTime.split(':');
+                const hours = parseInt(timeParts[0], 10);
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedHours = hours % 12 || 12;
+                const formattedTime = `${formattedHours}:${timeParts[1]} ${ampm}`;
+                timeElement.innerText = formattedTime; // Format time as hh:mm AM/PM
+                listItem.appendChild(timeElement);
+    
+                const textElement = document.createElement('div');
+                textElement.classList.add('history-text');
+                textElement.innerText = `${entry.checkpoint_location} - ${entry.description}`;
+                listItem.appendChild(textElement);
+    
                 historyList.appendChild(listItem);
             });
             orderDetailsDiv.appendChild(historyList);
         } else {
             orderDetailsDiv.innerHTML = 'Seller is preparing to ship your order';
-        }   
+        }
     }
-
+    
 function openModal(orderId, deliveryReferenceNumber) {
     var modal = document.getElementById('myModal');
     var orderDetailsDiv = document.getElementById('orderDetails');
