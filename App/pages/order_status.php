@@ -151,7 +151,13 @@ error_reporting(E_ALL);
 
         if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
 
-            if (isset($_SESSION['po_id'])) {
+            // Initialize $po_id to null
+            $po_id = null;
+
+            if (isset($_GET['po_id'])) 
+                $po_id = $_GET['po_id'];
+
+            elseif (isset($_SESSION['po_id'])) {
                 $po_id = $_SESSION['po_id'];
             }
             if ($po_id !== null) {
