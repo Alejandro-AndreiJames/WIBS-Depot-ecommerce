@@ -1,9 +1,8 @@
         <?php
             // Connect to the database
-            include 'db_conn.php';
-
             session_start();
-
+            include 'db_conn.php';
+            
             $cartQuery = "SELECT COUNT(*) FROM cart WHERE user_id = ?";
             $stmt = $conn->prepare($cartQuery);
             $stmt->bind_param("i", $userid);

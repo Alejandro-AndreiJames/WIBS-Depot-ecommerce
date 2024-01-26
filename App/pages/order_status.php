@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 0); // Turn off error displaying
-error_reporting(E_ALL);
     session_start();
     include 'db_conn.php';
   
