@@ -74,31 +74,31 @@ if (isset($_POST['submit'])) {
         <div class="form-row">
           <div class="form-group">
             <label for="firstname">First Name</label>
-            <input type="text" class="input-width" id="firstname" name="firstname" placeholder="Input First Name" />
+            <input type="text" class="input-width" id="firstname" name="firstname" placeholder="Input First Name" required/>
           </div>
 
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input type="text" id="lastname" name="lastname" placeholder="Input Last Name" />
+            <input type="text" id="lastname" name="lastname" placeholder="Input Last Name" required/>
           </div>
         </div>
         
         <div class="form-row">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Input Username" />
+            <input type="text" id="username" name="username" placeholder="Input Username" required/>
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="Input Email" />
+            <input type="text" id="email" name="email" placeholder="Input Email" required/>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="Input Password" />
+              <input type="password" id="password" name="password" placeholder="Input Password" required/>
               <div class="toggle-password" onclick="togglePasswordVisibility('password', 'eye-icon1')">
                   <img id="eye-icon1" src="../ASSETS/close.png" alt="Toggle Password Visibility" />
               </div>
@@ -106,22 +106,22 @@ if (isset($_POST['submit'])) {
 
           <div class="form-group">
               <label for="confirm_password">Confirm Password</label>
-              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required/>
               <div class="toggle-password" onclick="togglePasswordVisibility('confirm_password', 'eye-icon2')">
                   <img id="eye-icon2" src="../ASSETS/close.png" alt="Toggle Password Visibility" />
               </div>
           </div>
       </div>
-      
+
         <div class="form-row">
           <div class="form-group">
             <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Input Address" />
+            <input type="text" id="address" name="address" placeholder="Input Address" required/>
           </div>
 
           <div class="form-group">
             <label for="mobile_num">Mobile Number</label>
-            <input type="number" id="mobile_num" name="mobile_num" placeholder="Input Number" />
+            <input type="number" id="mobile_num" name="mobile_num" placeholder="Input Number" required/>
           </div>
         </div>
 

@@ -82,7 +82,7 @@ body {
 
 .form-group .toggle-password {
   position: absolute; /* Absolutely position the eye icon */
-  top: 58%; /* Center it vertically */
+  top: 61%; /* Center it vertically */
   transform: translateY(-50%); /* Offset by half its height for perfect centering */
   right: 10px; /* Place it 10px from the right */
   cursor: pointer;
