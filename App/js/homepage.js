@@ -2,7 +2,6 @@ let cartItemCount = 0;
 document.addEventListener('DOMContentLoaded', function() {
     const itemsPerPage = 15;
     let currentPage = 1;
-    let totalItems = 45;
 
     function fetchItems(offset, limit) {
         return fetch(`https://thefusionseller.online/api_endpoints/get_item_list.php?offset=${offset}&limit=${limit}`)
@@ -24,6 +23,93 @@ document.addEventListener('DOMContentLoaded', function() {
         return itemDiv;
     }
 
+    function displayInitialItems() {
+        fetchItems(15, 20).then(data => {
+            const contentWrapper1 = document.querySelector('.content-wrapper-1');
+            const contentWrapper2 = document.querySelector('.content-wrapper-2');
+
+            for (let i = 15; i < 17 && i < data.length; i++) {
+                contentWrapper1.appendChild(createItemDiv(data[i]));
+            }
+
+            for (let i = 17; i < 20 && i < data.length; i++) {
+                contentWrapper2.appendChild(createItemDiv(data[i]));
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data: ', error);
+        });
+    }
+
+    function displayAllDeals() {
+        fetchItems(0, itemsPerPage).then(data => {
+            const contentWrapper = document.querySelector('.content-wrapper-3');
+            contentWrapper.innerHTML = ''; 
+            data.forEach(item => {
+                contentWrapper.appendChild(createItemDiv(item));
+            });
+            updatePagination(data.length);
+        })
+        .catch(error => {
+            console.error('Error fetching data: ', error);
+        });
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(itemsPerPage);
+        
+        const pagination = document.querySelector('.pagination');
+        pagination.innerHTML = '';
+        
+        const prevButton = document.createElement('button');
+        prevButton.innerText = 'Previous';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                fetchAndDisplayItems();
+            }
+        });
+        pagination.appendChild(prevButton);
+    
+        const nextButton = document.createElement('button');
+        nextButton.innerText = 'Next';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                fetchAndDisplayItems();
+            }
+        });
+        pagination.appendChild(nextButton);
+    }
+    
+    function fetchAndDisplayItems() {
+        let offset = (currentPage - 1) * itemsPerPage;
+        
+        fetchItems(offset, itemsPerPage)
+            .then(data => {
+                const container = document.querySelector('.content-wrapper-3');
+                container.innerHTML = ''; 
+                data.forEach(item => {
+                    container.appendChild(createItemDiv(item));
+                });
+                updatePagination(data.length);
+            })
+            .then(scrollToAllDealsSection)
+            .catch(error => console.error('Error:', error));
+    }
+
+    function scrollToAllDealsSection() {
+        const allDealsSection = document.querySelector('#all_deals_section');
+        allDealsSection.scrollIntoView();
+    }
+
+    displayInitialItems();
+    displayAllDeals();
+
     function displayItemDetails(item) {
         document.querySelector('#popup_item_name').innerText = item.item_name;
         document.querySelector('#popup_item_price').innerText = `Price: ₱${item.item_price}`;
@@ -36,15 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function addToCart(item) {
         const quantity = document.querySelector('#quantity').value;
     
-        // Extract item details
         const itemName = item.item_name;
         const itemPrice = item.item_price;
         const itemImage = item.item_image;
         const itemId = item.item_id;
     
-        // Check if the values are defined
         if (itemName !== undefined && itemPrice !== undefined && itemImage !== undefined) {
-            // Create a FormData object to send data to the server
             const formData = new FormData();
             formData.append('item_name', itemName);
             formData.append('quantity', quantity);
@@ -52,10 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('item_image', itemImage);
             formData.append('item_id', itemId);
     
-            // Log FormData contents
             console.log('FormData:', formData);
     
-            // Make an AJAX request to addToCart.php
             fetch('cart.php', {
                 method: 'POST',
                 body: formData
@@ -79,7 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-
         function showAlert(message) {
             const alertBox = document.getElementById('customAlert');
             const alertMessage = document.getElementById('alertMessage');
@@ -87,9 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
             alertMessage.innerText = message;
             alertBox.classList.add('show');
-            overlay.classList.add('visible'); // Make overlay visible
+            overlay.classList.add('visible'); 
         
-            // Hide the alert and overlay after 3 seconds
             setTimeout(() => {
                 alertBox.classList.remove('show');
                 overlay.classList.remove('visible');
@@ -130,73 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('.close-btn').addEventListener('click', closePopup);
 
-    function displayInitialItems() {
-        fetchItems(0, 5).then(data => {
-            const contentWrapper1 = document.querySelector('.content-wrapper-1');
-            const contentWrapper2 = document.querySelector('.content-wrapper-2');
-
-            for (let i = 0; i < 2 && i < data.length; i++) {
-                contentWrapper1.appendChild(createItemDiv(data[i]));
-            }
-
-            for (let i = 2; i < 5 && i < data.length; i++) {
-                contentWrapper2.appendChild(createItemDiv(data[i]));
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data: ', error);
-        });
-    }
-
-    function displayAllDeals(items) {
-        const container = document.querySelector('.content-wrapper-3');
-        container.innerHTML = ''; 
-        items.forEach(item => {
-            container.appendChild(createItemDiv(item));
-        });
-        updatePagination();
-    }
-
-    function updatePagination() {
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        const pagination = document.querySelector('.pagination');
-        pagination.innerHTML = '';
-
-        for (let i = 1; i <= totalPages; i++) {
-            const pageLink = document.createElement('a');
-            pageLink.href = '#';
-            pageLink.innerText = i;
-            if (i === currentPage) {
-                pageLink.classList.add('active');
-            }
-            pageLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                currentPage = i;
-                fetchItems(((currentPage - 1) * itemsPerPage) + 5, itemsPerPage)
-                    .then(displayAllDeals)
-                    .then(scrollToAllDealsSection)
-                    .catch(error => console.error('Error:', error));
-            });
-            pagination.appendChild(pageLink);
-        }
-    }
-
-    function scrollToAllDealsSection() {
-        const allDealsSection = document.querySelector('#all_deals_section');
-        allDealsSection.scrollIntoView();
-    }
-
-    displayInitialItems();
-    fetchItems(5, itemsPerPage).then(displayAllDeals).catch(error => console.error('Error:', error));
 });
 
-
-// Function to toggle the dropdown
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
