@@ -1,7 +1,12 @@
 <?php
     session_start();
     include 'db_conn.php';
-  
+    echo 'Session ID' . session_id();
+
+    ini_set('display_errors', 1);
+    ini_set('log_errors', 1);
+    ini_set('error_log', '../css');
+    error_reporting(E_ALL);
 
     // Accessing the username and user ID from the session variables
     $username = $_SESSION['user_name'];
