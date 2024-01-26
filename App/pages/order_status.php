@@ -148,6 +148,24 @@ error_reporting(E_ALL);
                 <?php
             }
         }
+
+        if (isset($_GET['fund_transfer_success']) && $_GET['fund_transfer_success'] == 'true') {
+
+            if (isset($_SESSION['po_id'])) {
+                $po_id = $_SESSION['po_id'];
+            }
+            if ($po_id !== null) {
+            ?>
+            <!-- Global variable for JavaScript -->
+            <script type="text/javascript">
+                var poId = <?php echo json_encode($po_id); ?>;
+            </script>
+            
+            <!-- Include External JavaScript file -->
+            <script src="../js/status_update.js"></script>
+            <?php
+        }
+    }
         // Close statement and connection
         $stmt->close();
         $conn->close();
