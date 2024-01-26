@@ -53,6 +53,7 @@ body {
 }
 
 .form-group {
+  position: relative; /* Set the position to relative */
   margin-bottom: 15px;
 }
 
@@ -77,6 +78,18 @@ body {
   background-color: #0B464E; 
   color: white;
   cursor: pointer;
+}
+
+.form-group .toggle-password {
+  position: absolute; /* Absolutely position the eye icon */
+  top: 58%; /* Center it vertically */
+  transform: translateY(-50%); /* Offset by half its height for perfect centering */
+  right: 10px; /* Place it 10px from the right */
+  cursor: pointer;
+}
+
+.form-group input[type="password"] {
+  padding-right: 40px; /* Make sure this is enough space for the eye icon to fit */
 }
 
 .signup-link {

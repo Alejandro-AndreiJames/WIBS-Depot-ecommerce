@@ -97,16 +97,22 @@ if (isset($_POST['submit'])) {
 
         <div class="form-row">
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Input Password" />
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Input Password" />
+              <div class="toggle-password" onclick="togglePasswordVisibility('password', 'eye-icon1')">
+                  <img id="eye-icon1" src="../ASSETS/close.png" alt="Toggle Password Visibility" />
+              </div>
           </div>
 
           <div class="form-group">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
+              <label for="confirm_password">Confirm Password</label>
+              <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
+              <div class="toggle-password" onclick="togglePasswordVisibility('confirm_password', 'eye-icon2')">
+                  <img id="eye-icon2" src="../ASSETS/close.png" alt="Toggle Password Visibility" />
+              </div>
           </div>
-        </div>
-
+      </div>
+      
         <div class="form-row">
           <div class="form-group">
             <label for="address">Address</label>
@@ -145,6 +151,6 @@ if (isset($_POST['submit'])) {
     <img src="../ASSETS/Blue shopping bag in air.png" alt="">
   </footer>
 </body>
-<script src="script.js"></script>
+<script src="../js/signup.js"></script>
 
 </html>
