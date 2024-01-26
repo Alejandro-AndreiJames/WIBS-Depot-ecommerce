@@ -15,16 +15,12 @@
             $stmt->close();
 
             // Check if the user is logged in, if not then redirect to login page
-            if (!isset($_SESSION['user_name']) && isset($_COOKIE['user_id'])) {
+            if (!isset($_COOKIE['user_id'])) {
                 $userId = $_COOKIE['user_id'];
                 header("Location: login.php"); // Adjust the path as necessary
                 exit;
                 
-            } elseif (!isset($_SESSION['user_name'])) {
-                header("Location: login.php");
-                exit;
-            }
-
+            }      
             // Accessing the username from the session variable
             $userid = $_SESSION['user_id'];
             $username = $_SESSION['user_name'];
