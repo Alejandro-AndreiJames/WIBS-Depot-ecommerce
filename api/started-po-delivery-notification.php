@@ -54,10 +54,14 @@ function fetchDeliveryStatusFromAPI($deliveryReferenceNumber) {
 
     $responseArray = json_decode($response, true);
 
-    // Assuming the latest status is the last element of the array
-    $latestStatus = end($responseArray)['status'];
+    // Check all entries for a status of 3
+    foreach ($responseArray as $entry) {
+        if ($entry['status'] == 3) {
+            return 3; // Delivery confirmed
+        }
+    }
 
-    return $latestStatus;
+    return null; // Delivery not confirmed
 }
 
 function updateOrderStatus($conn, $poId) {
