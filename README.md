@@ -22,7 +22,7 @@ Explore [Wibs.tech](https://wibs.tech/) now!
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Visual Studio Code](https://img.shields.io/badge/Visual_Studio_Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 
-## Account Credentials for Testing :detective:
+## Account Credentials for Testing :detective: :detective:
 
 - **Email:** steven@gmail.com
 - **Password:** test
